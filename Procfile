@@ -1,1 +1,1 @@
-web: gunicorn app:nysecure;
+web: gunicorn app:app;
