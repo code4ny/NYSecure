@@ -1,3 +1,40 @@
+# Project
+
+## Project Structure
+
+- Codes to be in folder named app.
+- Main flask code is in `app/views.py`
+- To run the flask code, run the run.py file.
+- Create any other files needed to improve the structure.
+
+## Project Specifications (for MVP)
+
+- All form datas should be using POST unless there is a specific purpose for using GET.
+
+### Reporting page
+
+- Should obtain the information:
+    + name
+    + location
+    + is the room secure against intrusion?
+
+### Summary page
+
+- Shows the number of people at each block. 
+- When clicked, get data, and show locations at the block and the number of people.
+
+## Job Scope
+
+### Backend
+- Come up with a database schema
+- Able to update the database based on data from location_reporting
+- Appropriate data structure/object to be passed to render template
+
+### Frontend
+- Design the page and beautify it.
+- Coding the html to display all datas (including the jinja expressions)
+
+
 # Help and Documentation
 
 ## Git/Github Usage
@@ -34,9 +71,3 @@ In the case that the gui doesn't have the function
 - Select new branch from github branch: `git branch -u origin/<branch-name>`
 - Select new branch: `git checkout <branch-name>`
 - Check current branch/see all branch: `git branch` (the one with asterisk is the current branch)
-
-## Project Structure
-
-- Codes to be in folder named app.
-- Main flask code is in `app/views.py`
-- To run the flask code, run the run.py file.
