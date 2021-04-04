@@ -10,33 +10,88 @@
     h1 {
   color: yellow;
   font-family: sans-serif;
-  font-size: 300%;
+  font-size: 250%;
   border: red;
   text-align: center;
     }
 
-    body {background-color: powderblue;
+    body {background-color: rgb(29, 118, 177);
     text-align: center;}
+
+    .dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
   </style>
   <body>
+    <br><br>
     <h1>Reporting</h1>
     <form action="" method="">
-      <input type="text" name="" style="border-radius: 8px; text-align: left;" placeholder="full name, as in NRIC">
-      <select name="" id="" style="text-align: left;" aria-placeholder="location">
-        <option value=""></option>
-        <option value=""></option>
-        <option value=""></option>
-        <option value=""></option>
-      <input type="submit" value="submit" style="border-radius: 50%; text-align: center; color: royalblue;
-      border: yellow">
-      </select>
+      <br><br><br>
+      <input type="text" name="" style="border-radius: 2px; text-align: left;" placeholder="full name, as in NRIC">
+      <br><br>
+
+      <div class="dropdown">
+        <button class="dropbtn">Location</button>
+        <div class="dropdown-content">
+          <a href="#">Location 1</a>
+          <a href="#">Location 2</a>
+          <a href="#">Location 3</a>
+        </div>
+      </div>
+
+      <br><br><br>
+      <input type="submit" value="submit" style="border-radius: 25%; text-align: center; font-size: large; color: royalblue;
+      border: yellow; font-family: sans-serif;">
     </form>
+    <br>
+    <br>
+    <br>
+    {% if safe is True %}
     <p style="color: yellow; font-family: sans-serif; font-size: medium; text-align: center;">
-      {% if safe is True %}
-      Your location is <span style="color:green"> safe </span>. Please <span style="color:green"> stay here. </span>
-      {% else %}
-      Your location is <span style="color:red"> not safe</span>. Please <span style="color:red"> do not stay here. Move to a safe location, take care. </span>
-      {% endif %}
+      Your location is <span style="color:rgb(14, 196, 14)"> safe </span>. Please <span style="color:rgb(14, 196, 14)"> stay here. </span>
     </p>
+    {% else %}
+    <p style="color: yellow; font-family: sans-serif; font-size: medium; text-align: center;"></p>
+      Your location is <span style="color:red"> not safe</span>. Please <span style="color:red"> do not stay here. Move to a safe location, take care. </span>
+    </p>
+    {% endif %}
+    
   </body>
 </html>
