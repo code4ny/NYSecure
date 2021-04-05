@@ -19,8 +19,11 @@ def reporting():
     Returns:
         render_template("location_reporting.html")
     """
-    
-    return render_template("location_reporting.html")
+
+    # locations_list is the list of all the possible location that they can report. 
+    # Pulled from database?
+    locations_list = ["Location 1", "Location 2", "Location 3"]  # example value
+    return render_template("location_reporting.html", locations_list=locations_list)
 
 
 @app.route("/update")
@@ -43,6 +46,11 @@ def summary():
     Returns:
         render_template("summary.html")
     """
-
-    return render_template("summary.html")
+    if "block" in  request.args:
+        block = request.args["block"]
+        print(block)
+        return render_template("summary.html")
+    else:
+        data = [(2,1,"Science Block"), (100,4,"Admin Block")]
+        return render_template("summary_block.html", datas=data)
     
