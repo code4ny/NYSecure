@@ -6,21 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NYSecure</title>
     <link rel="stylesheet" href="../static/styles.css" />
-    <style>
-      h1 {
-        font-size: 8vw;
-        text-align: center;
-      }
-      .banner {
-        fill: #295ef0;
-      }
-    </style>
-    <script></script>
   </head>
   <body>
     <h1>Summary</h1>
-    {% for data in datas %}
-    <div style="text-align: center; padding: 10px 5px;">
+    {% for num_student, num_teacher, block in datas %}
+    <div style="text-align: center; padding: 10px 5px">
       <svg
         width="80%"
         height="10%"
@@ -29,14 +19,14 @@
         class=""
         onclick=""
       >
-        <a href="{{ data.block }}">
+        <a href="/summary?block={{ block }}">
           <g transform="matrix(1 0 0 .66031 0 .10206)">
             <path
               d="m77.559 26.913h-74.779c-1.4083 0-2.542-1.9182-2.542-4.301v-18.01c0-2.3827 1.1337-4.301 2.542-4.301h74.779c0.81245 0 1.7343 1.2302 1.7343 1.2302l7.0088 12.1-7.1921 12.4s-0.92886 0.88176-1.5509 0.88176z"
               fill="#ffff42"
-              opacity=".992"
+              opacity="1.0"
               stroke="#000"
-              stroke-width=".86285"
+              stroke-width="0"
             />
             <path
               d="m78.623 6.5543 3.8729 7.0776-3.9567 7.2528-2.0641 0.0013 3.9658-7.291-3.8718-7.0456z"
@@ -52,26 +42,26 @@
             x="3"
             y="7"
             style="
-              font-family: Arial;
+              font-family: sans-serif;
               font-size: 0.4em;
               line-height: 1;
               stroke-width: 0.3;
             "
           >
-            {{ data.block }}
+            {{ block }}
           </text>
           <text
             transform="scale(.88846 1.1255)"
             x="3"
             y="13"
             style="
-              font-family: Arial;
+              font-family: sans-serif;
               font-size: 0.24em;
               line-height: 1;
               stroke-width: 0.2;
             "
           >
-            {{ data.people }}
+            {{ num_student }} students, {{ num_teacher }} teachers
           </text>
         </a>
       </svg>

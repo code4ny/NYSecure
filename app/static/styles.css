@@ -1,32 +1,23 @@
-:root {
-  --bg-blue: rgb(29, 118, 177);
+body {
+  background-color: rgb(29, 118, 177);
+  text-align: center;
 }
 h1 {
   color: yellow;
   font-family: sans-serif;
-  /* font-size: 250%; */
-  font-size: 12vw;
+  font-size: 10vw;
   border: red;
   margin: 8vh 6vw;
-  text-align: center;
 }
 
-body {
-  background-color: var(--bg-blue);
-  text-align: center;
-  align-content: center;
-}
 form {
-  text-align: center;
   display: flex;
   flex-direction: column;
-
-  /* margin: 10%; */
-  margin: 10vh 15vw;
+  margin: 5vh 10vw;
 }
 select {
   flex-grow: 1;
-  margin-left: 10vw;
+  margin-left: 5vw;
   border-radius: 10px;
   padding: 10px;
 }
@@ -34,7 +25,6 @@ input {
   required: true;
   margin: 4% 0%;
   padding: 2%;
-  /* width%: 80%; */
 }
 input[type="text"] {
   border-radius: 2px;
@@ -42,16 +32,13 @@ input[type="text"] {
 }
 input[type="submit"] {
   border-radius: 10px;
-  text-align: center;
-  font-size: large;
+  font-size: 1em;
   color: royalblue;
-  /* background-color: var(--bg-blue);  */
-  /* border:  2px solid yellow; */
   font-family: sans-serif;
   box-sizing: border-box;
   width: 20vw;
-  cursor: pointer;
 }
 input[type="submit"]:hover {
+  cursor: pointer;
   color: white;
 }
