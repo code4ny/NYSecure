@@ -1,12 +1,17 @@
-# test file for google login. 
-
-from database import DataStore, User
+from app.database import DataStore, User
 import json
 import os
-from flask import Flask, redirect, request, url_for
-from flask_login import LoginManager, current_user, login_required, login_user, logout_user
+from flask import Flask, redirect, request, url_for, render_template
+from flask_login import (
+    LoginManager,
+    current_user,
+    login_required,
+    login_user,
+    logout_user,
+)
 from oauthlib.oauth2 import WebApplicationClient
 import requests
+from app import app
 
 a = DataStore()
 # Retrieve client id and secret from https://console.cloud.google.com/apis/credentials?project=nysecure
@@ -14,31 +19,22 @@ a = DataStore()
 google_client_id = os.environ.get("GOOGLE_CLIENT_ID", None)
 google_client_secret = os.environ.get("GOOGLE_CLIENT_SECRET", None)
 google_discovery_url = "https://accounts.google.com/.well-known/openid-configuration"
+
+
 def get_google_provider_cfg():
     return requests.get(google_discovery_url).json()
 
 
-app = Flask(__name__)
 app.secret_key = os.urandom(24)
 login_manager = LoginManager()
 login_manager.init_app(app)
 client = WebApplicationClient(google_client_id)
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.get(a, user_id)
 
-@app.route("/")
-def root():
-    if current_user.is_authenticated:
-        return (
-            f"""<p>Hello, {current_user.name}! You're logged in! Email: {current_user.email}</p>
-            <div><p>Google Profile Picture:</p>
-            <img src="{current_user.profile_pic}" alt="Google profile pic"></img></div>
-            <a class="button" href="/logout">Logout</a>"""
-        )
-    else:
-        return '<a class="button" href="/login">Google Login</a>'
 
 @app.route("/login")
 def login():
@@ -51,15 +47,25 @@ def login():
     )
     return redirect(request_uri)
 
+
 @app.route("/login/callback")
 def callback():
     # Get authorization code Google sent back to you
     code = request.args.get("code")
     google_provider_cfg = get_google_provider_cfg()
     token_endpoint = google_provider_cfg["token_endpoint"]
-    token_url, headers, body = client.prepare_token_request(token_endpoint,\
-    authorization_response=request.url, redirect_url=request.base_url, code=code)
-    token_response = requests.post(token_url, headers=headers, data=body, auth=(google_client_id, google_client_secret))
+    token_url, headers, body = client.prepare_token_request(
+        token_endpoint,
+        authorization_response=request.url,
+        redirect_url=request.base_url,
+        code=code,
+    )
+    token_response = requests.post(
+        token_url,
+        headers=headers,
+        data=body,
+        auth=(google_client_id, google_client_secret),
+    )
     client.parse_request_body_response(json.dumps(token_response.json()))
     userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
     uri, headers, body = client.add_token(userinfo_endpoint)
@@ -79,7 +85,7 @@ def callback():
     else:
         type_ = "student"
     user = User(unique_id, users_name, users_email, type_, picture)
-    
+
     # Adds user to database if it does not exist
     if not User.get(a, unique_id):
         user.to_db(a)
@@ -87,11 +93,13 @@ def callback():
     login_user(user)
     return redirect(url_for("root"))
 
+
 @app.route("/logout")
 @login_required
 def logout():
     logout_user()
     return redirect(url_for("root"))
 
-if __name__ == '__main__':
-    app.run(ssl_context='adhoc')
+
+if __name__ == "__main__":
+    app.run(ssl_context="adhoc")

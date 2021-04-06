@@ -3,9 +3,15 @@
 ## Project Structure
 
 - Codes to be in the folder named `app`.
-- Main flask code is in `app/views.py`.
+- `api.py` : url and logic for requests to be made
+- `config.py` : To contain the configuration of some of the globally used variables
+- `database.py` : Codes to manipulate the database
+- `login.py` : Login logic and url to login
+- `views.py` : To view the page. Avoid processing data here.
+
 - To run the flask code, run the `run.py` file.
 - Create any other files needed to improve the structure.
+- Schema (database, api, css class): https://docs.google.com/document/d/1cnTBuBVuUCJdrRCjcoP0eZie31BGKTb4XK3g6L5Tw-s/edit?usp=sharing
 
 ## Project Specifications (for MVP)
 
@@ -14,27 +20,14 @@
 ### Reporting page
 
 - Should obtain the information:
-    + name
-    + location
-    + is the room secure against intrusion?
+  - name
+  - location
+  - is the room secure against intrusion?
 
 ### Summary page
 
-- Shows the number of people at each block. 
+- Shows the number of people at each block.
 - When clicked, get data, and show locations at the block and the number of people.
-
-## Job Scope
-
-### Backend
-
-- Come up with a database schema
-- Able to update the database based on data from location_reporting
-- Appropriate data structure/object to be passed to render template
-
-### Frontend
-
-- Design the page and beautify it.
-- Coding the html to display all datas (including the jinja expressions)
 
 ## Heroku
 
@@ -49,7 +42,7 @@
 
 1. Clone this git: `git clone https://github.com/code4ny/NYSecure.git`
 1. Change base branch to push/pull from: `git branch -u origin/development`
-    - If unsure, just push/pull from here for now.
+   - If unsure, just push/pull from here for now.
 
 ### Rough Git Workflow
 

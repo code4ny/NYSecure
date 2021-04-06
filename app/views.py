@@ -1,34 +1,45 @@
+"""
+To render the html files for viewing.
+Data processing should be done in the the `database.py` file as much as possible.
+"""
+
 from app import app
 from flask import render_template, redirect, request
+from flask_login import current_user
 
-@app.route('/')
+
+@app.route("/")
 def root():
-    """Does nothing for now.
-
-    Returns:
-        redirect to the reporting page
+    """To check with the user is login, and log them in if necessary
+    Otherwise, redirect to the reporting page
     """
-    return redirect('/reporting')
+
+    if current_user.is_authenticated:
+        return render_template(
+            "index.html", authenticated=True, current_user=current_user
+        )
+    else:
+        return render_template("index.html", authenticated=False)
 
 
 @app.route("/reporting")
 def reporting():
     """
-    Displays the form. Redirects to update
+    Displays the form. POST to update
 
     Returns:
         render_template("location_reporting.html")
     """
 
-    # locations_list is the list of all the possible location that they can report. 
-    # Pulled from database?
+    # locations_list is the list of all the possible location that they can report.
+    # TODO: pull location list from database by backend
     locations_list = ["Location 1", "Location 2", "Location 3"]  # example value
     return render_template("location_reporting.html", locations_list=locations_list)
 
 
 @app.route("/update")
 def update():
-    """    
+    """
     Update the database based on the location being reported.
 
     Returns:
@@ -46,11 +57,10 @@ def summary():
     Returns:
         render_template("summary.html")
     """
-    if "block" in  request.args:
+    if "block" in request.args:
         block = request.args["block"]
         print(block)
         return render_template("summary.html")
     else:
-        data = [(2,1,"Science Block"), (100,4,"Admin Block")]
+        data = [(2, 1, "Science Block"), (100, 4, "Admin Block")]
         return render_template("summary_block.html", datas=data)
-    
