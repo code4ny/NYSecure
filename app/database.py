@@ -1,6 +1,4 @@
-"""
-DataStore class to work with the database and any other function to manipulate it
-"""
+"""DataStore and User class to work with the database and any other function to manipulate it."""
 
 import os
 import requests
@@ -17,7 +15,56 @@ class DataStore:
         self.url = os.environ.get("DATABASE_URL", testing_database)
 
     def get_connection(self):
+        """Return a connection to database.
+
+        Returns:
+            psycopg2.extensions.connection: connection to the database
+        """
         return psycopg2.connect(self.url)
+
+    def get_locations_list(self, block=None, level=None):
+        """Return all the location in the school.
+
+        Allow filtering of location
+
+        Args:
+            block (str, optional): Block to select. Defaults to None, which selects all.
+            level (str, optional): Level to select. Defaults to None, which select all.
+
+        Returns:
+            list: list of location string
+        """
+        # TODO: Backend
+        raise NotImplementedError
+
+    def get_summary(self, block=None, level=None):
+        """Return all the locations with their associated number of people there.
+
+        Filtered based on condition.
+
+        Args:
+            block (str, optional): Locations with that block. Defaults to None, which will return all.
+            level (int, optional): The level of the location. Defaults to None, which will return all.
+
+        Returns:
+            list: Contains all the required values. If invalid filter, return empty list.
+        """
+        # TODO: Backend
+        raise NotImplementedError
+
+    def update_report(self, userid, location, pax=1):
+        """Update the report based on form submission.
+
+        Args:
+            userid (str): userid of person who submit the form.
+            location (str): Location name string
+            pax (int, optional): The number of people at the location. Defaults to 1.
+
+        Returns:
+            str/int: Denote whether the update was sucessful. If not success, the reason why. Similar to status code 200,404 etc.
+        """
+        # TODO: Backend
+        raise NotImplementedError
 
 
 class User(UserMixin):

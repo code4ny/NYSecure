@@ -1,19 +1,23 @@
-"""
-To render the html files for viewing.
-Data processing should be done in the the `database.py` file as much as possible.
+"""To render the html files for viewing.
+
+Database processing should be done in the the `database.py` file as much as possible.
 """
 
 from app import app
 from flask import render_template, redirect, request
 from flask_login import current_user
+from app.database import DataStore
+
+ds = DataStore()
 
 
 @app.route("/")
 def root():
-    """To check with the user is login, and log them in if necessary
-    Otherwise, redirect to the reporting page
-    """
+    """To check with the user is login, and log them in if necessary.
 
+    Otherwise, redirect to the reporting page.
+    """
+    ds.get_connection()
     if current_user.is_authenticated:
         return render_template(
             "index.html", authenticated=True, current_user=current_user
@@ -25,15 +29,13 @@ def root():
 @app.route("/reporting")
 def reporting():
     """
-    Displays the form. POST to update
+    Display the form.
 
     Returns:
         render_template("location_reporting.html")
     """
-
     # locations_list is the list of all the possible location that they can report.
-    # TODO: pull location list from database by backend
-    locations_list = ["Location 1", "Location 2", "Location 3"]  # example value
+    locations_list = ds.get_locations_list()
     return render_template("location_reporting.html", locations_list=locations_list)
 
 
@@ -45,22 +47,16 @@ def update():
     Returns:
         redirect("reporting")
     """
-
+    userid = None  # TODO: Ryan&JianSan
+    assert False, "userid to be corrected. DELETE line when done!"
+    location = request.form.get("location")
+    ds.update_report(userid, location)
     return redirect("/reporting")
 
 
 @app.route("/summary")
 def summary():
     """
-    Shows the blocks and number of students
-
-    Returns:
-        render_template("summary.html")
+    Show the blocks and number of students.
     """
-    if "block" in request.args:
-        block = request.args["block"]
-        print(block)
-        return render_template("summary.html")
-    else:
-        data = [(2, 1, "Science Block"), (100, 4, "Admin Block")]
-        return render_template("summary_block.html", datas=data)
+    raise NotImplementedError
