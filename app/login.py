@@ -81,13 +81,13 @@ def callback():
 
     # Assigns a type to the user and creates user object
     if "Staff" in users_name:
-        type_ = "teacher"
+        type_ = "staff"
     else:
         type_ = "student"
     user = User(unique_id, users_name, users_email, type_, picture)
 
     # Adds user to database if it does not exist
-    if not User.get(a, unique_id):
+    if User.get(a, unique_id) is None:
         user.to_db(a)
 
     login_user(user)

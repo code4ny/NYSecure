@@ -5,8 +5,10 @@ Database processing should be done in the the `database.py` file as much as poss
 
 from app import app
 from flask import render_template, redirect, request
-from flask_login import current_user
+
+# from flask_login import current_user
 from app.database import DataStore
+from app.login import current_user
 
 ds = DataStore()
 
@@ -18,12 +20,13 @@ def root():
     Otherwise, redirect to the reporting page.
     """
     ds.get_connection()
-    if current_user.is_authenticated:
-        return render_template(
-            "index.html", authenticated=True, current_user=current_user
-        )
-    else:
-        return render_template("index.html", authenticated=False)
+    return render_template("index.html")
+    # if current_user.is_authenticated:
+    #     return render_template(
+    #         "index.html", authenticated=True, current_user=current_user
+    #     )
+    # else:
+    #     return render_template("index.html", authenticated=False)
 
 
 @app.route("/reporting")
