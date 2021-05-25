@@ -59,10 +59,24 @@ class DataStore:
             level (int, optional): The level of the location. Defaults to None, which will return all.
 
         Returns:
-            list: Contains all the required values. If invalid filter, return empty list.
+            dict: Contains all the required values. If invalid filter, return None.
         """
-        # TODO: Backend
-        raise NotImplementedError
+        conn = self.get_connection()
+        cur = conn.cursor()
+
+        locationpax_dict = dict()
+        locations = self.get_locations_list(block, level)
+        
+        if locations == []:
+            return None
+
+        for location in locations:
+            cur.execute('SELECT Pax FROM Report WHERE Location=%s', (location,))
+            result = cur.fetchall()
+            if len(result) >= 1:
+                locationpax_dict[location] = result[0][0]
+        
+        return locationpax_dict
 
     def update_report(self, userid, location, pax=1):
         """Update the report based on form submission.
