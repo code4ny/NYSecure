@@ -8,7 +8,6 @@ import psycopg2
 from app.config import DATABASE_URI
 import psycopg2.extras
 
-
 class DataStore:
     def __init__(self):
         # FOR TESTING, TO BE REPLACED!
@@ -35,8 +34,20 @@ class DataStore:
         Returns:
             list: list of location string
         """
-        # TODO: Backend
-        raise NotImplementedError
+        conn = self.get_connection()
+        cur = conn.cursor()
+
+        if block is None and level is None:
+            cur.execute("SELECT LocationName FROM Location;")
+        elif block is not None and level is None:
+            cur.execute("SELECT LocationName FROM Location WHERE Block=%s;", (block,))
+        elif block is None and level is not None:
+            cur.execute("SELECT LocationName FROM Location WHERE Level=%s;", (level,))
+        else:
+            cur.execute("SELECT LocationName FROM Location WHERE BLOCK=%s AND Level=%s;", (block, level))
+
+        result = cur.fetchall()
+        return [row[0] for row in result]
 
     def get_summary(self, block=None, level=None):
         """Return all the locations with their associated number of people there.
