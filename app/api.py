@@ -2,9 +2,9 @@ from app.config import BASE_API_PATH, DATABASE_URI
 from app import app
 from flask import jsonify
 from app.database import DataStore
-from app.location_variables import BLOCKS
 
 ds = DataStore()
+BLOCKS = ['science', 'main']
 
 
 @app.route(BASE_API_PATH + "/locationdata")
