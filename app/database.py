@@ -71,7 +71,7 @@ class DataStore:
             return None
 
         for location in locations:
-            cur.execute('SELECT Pax FROM Report WHERE Location=%s', (location,))
+            cur.execute('SELECT Pax FROM Report WHERE Location=%s ORDER BY ReportingTime DESC', (location,))
             result = cur.fetchall()
             if len(result) >= 1:
                 locationpax_dict[location] = result[0][0]
