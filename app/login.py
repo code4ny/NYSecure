@@ -91,7 +91,7 @@ def callback():
         user.to_db(a)
 
     login_user(user)
-    return redirect(url_for("root"))
+    return redirect(url_for("root"))  # redirect after the login
 
 
 @app.route("/logout")
