@@ -59,7 +59,7 @@ class DataStore:
             level (int, optional): The level of the location. Defaults to None, which will return all.
 
         Returns:
-            list: Contains all the required values. If invalid filter, return empty list.
+            dict: Contains all the required values. If invalid filter, return None.
         """
         conn = self.get_connection()
         cur = conn.cursor()
@@ -84,6 +84,9 @@ class DataStore:
         for row in filtered:
             locationpax_dict[row[0]] += 1
         
+        if len(locationpax_dict) < 1:
+            return None
+            
         return locationpax_dict
 
     def update_report(self, userid, location, pax=1):
