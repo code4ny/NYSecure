@@ -59,22 +59,30 @@ class DataStore:
             level (int, optional): The level of the location. Defaults to None, which will return all.
 
         Returns:
-            dict: Contains all the required values. If invalid filter, return None.
+            list: Contains all the required values. If invalid filter, return empty list.
         """
         conn = self.get_connection()
         cur = conn.cursor()
 
-        locationpax_dict = dict()
+        resultlist = []
         locations = self.get_locations_list(block, level)
+        locationpax_dict = dict()
         
-        if locations == []:
-            return None
-
         for location in locations:
-            cur.execute('SELECT Pax FROM Report WHERE Location=%s ORDER BY ReportingTime DESC', (location,))
-            result = cur.fetchall()
-            if len(result) >= 1:
-                locationpax_dict[location] = result[0][0]
+            locationpax_dict[location] = 0
+
+        cur.execute('''SELECT DISTINCT ON (UserID) Location,ReportingTime,UserID,Pax 
+                    FROM (SELECT * FROM Report ORDER BY ReportingTime DESC) as foo;''')
+        result = cur.fetchall()
+
+        filtered = []
+
+        for index, row in enumerate(result):
+            if row[0] in locations:
+                filtered.append(row)
+        
+        for row in filtered:
+            locationpax_dict[row[0]] += 1
         
         return locationpax_dict
 
