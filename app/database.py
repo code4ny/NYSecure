@@ -1,12 +1,13 @@
 """DataStore and User class to work with the database and any other function to manipulate it."""
 
 import os
-import requests
 import json
+
 from flask_login import UserMixin
 import psycopg2
+
 from app.config import DATABASE_URI
-import psycopg2.extras
+
 
 class DataStore:
     def __init__(self):
@@ -44,7 +45,10 @@ class DataStore:
         elif block is None and level is not None:
             cur.execute("SELECT LocationName FROM Location WHERE Level=%s;", (level,))
         else:
-            cur.execute("SELECT LocationName FROM Location WHERE BLOCK=%s AND Level=%s;", (block, level))
+            cur.execute(
+                "SELECT LocationName FROM Location WHERE BLOCK=%s AND Level=%s;",
+                (block, level),
+            )
 
         result = cur.fetchall()
         return [row[0] for row in result]
@@ -56,7 +60,7 @@ class DataStore:
 
         Args:
             block (str, optional): Locations with that block. Defaults to None, which will return all.
-            level (int, optional): The level of the location. Defaults to None, which will return all.
+            level (str, optional): The level of the location. Defaults to None, which will return all.
 
         Returns:
             dict: Contains all the required values. If invalid filter, return None.
@@ -67,12 +71,14 @@ class DataStore:
         resultlist = []
         locations = self.get_locations_list(block, level)
         locationpax_dict = dict()
-        
+
         for location in locations:
             locationpax_dict[location] = 0
 
-        cur.execute('''SELECT DISTINCT ON (UserID) Location,ReportingTime,UserID,Pax 
-                    FROM (SELECT * FROM Report ORDER BY ReportingTime DESC) as foo;''')
+        cur.execute(
+            """SELECT DISTINCT ON (UserID) Location,ReportingTime,UserID,Pax 
+                    FROM (SELECT * FROM Report ORDER BY ReportingTime DESC) as foo;"""
+        )
         result = cur.fetchall()
 
         filtered = []
@@ -80,13 +86,13 @@ class DataStore:
         for index, row in enumerate(result):
             if row[0] in locations:
                 filtered.append(row)
-        
+
         for row in filtered:
             locationpax_dict[row[0]] += 1
-        
+
         if len(locationpax_dict) < 1:
             return None
-            
+
         return locationpax_dict
 
     def update_report(self, userid, location, pax=1):
