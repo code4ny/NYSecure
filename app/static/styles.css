@@ -1,12 +1,12 @@
 body {
-  background-color: rgb(29, 118, 177);
+  background-color: #364f6b;
   text-align: center;
 }
 h1 {
-  color: yellow;
-  font-family: sans-serif;
+  color: #fce38a;
+  font-family: 'Kumbh Sans', sans-serif;
   font-size: 10vw;
-  border: red;
+  border: 2px #fc5185;
   margin: 8vh 6vw;
 }
 
@@ -14,31 +14,93 @@ form {
   display: flex;
   flex-direction: column;
   margin: 5vh 10vw;
+  font-family: 'Cabin', sans-serif;
 }
 select {
   flex-grow: 1;
   margin-left: 5vw;
   border-radius: 10px;
   padding: 10px;
+  display:flex; 
+  flex-direction:row; 
+  justify-content:space-between; 
+  align-items:center; 
+  margin:10% 0;
+  border-radius: 2px;
+  border: 2px #434343;
+  color: #434343;
+  background-color: white;
 }
 input {
-  required: true;
+  /* required: true; */
   margin: 4% 0%;
   padding: 2%;
 }
 input[type="text"] {
   border-radius: 2px;
+  font-family: 'Cabin', sans-serif;
   text-align: left;
+  background-color: white;
+  color: #434343;
+  border: 2px #434343;
 }
 input[type="submit"] {
   border-radius: 10px;
   font-size: 1em;
-  color: royalblue;
-  font-family: sans-serif;
+  font-family: 'Cabin', sans-serif;
   box-sizing: border-box;
   width: 20vw;
+  background-color: #fce38a;
+  color: #434343;
 }
 input[type="submit"]:hover {
   cursor: pointer;
+  background-color: white;
+  border: 2px #fce38a;
+  color: #434343;
+}
+.topnav {
+  overflow: hidden;
+  /* background-color: #333; */
+  position: relative;
+  font-family: 'Cabin', sans-serif;
+}
+.topnav #myLinks {
+  display: none;
+}
+.topnav a {
   color: white;
+  background-color: #434343;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  font-family: 'Cabin', sans-serif;
+  display: block;
+}
+/* style the hamburger menu */
+.topnav a.icon {
+  background: #fc5185;
+  border: 2px white;
+  display: block;
+  position: absolute;
+  font-family: 'Cabin', sans-serif;
+  right: 0;
+  top: 0;
+}
+/* change background color of hamburger menu to grey when hovering */
+.topnav a:hover {
+  font-family: 'Cabin', sans-serif;
+  background-color: #ffffff;
+  color: #434343;
+}
+/* active link (current page) */
+a.active {
+  font-family: 'Cabin', sans-serif;
+  background-color: #3fc1c9;
+  color: #ffffff;
+}
+label {
+  font-family: 'Cabin', sans-serif;
+  color: white;
+  font-size: 17px;
 }

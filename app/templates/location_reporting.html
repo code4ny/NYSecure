@@ -4,36 +4,56 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cabin&display=swap" rel="stylesheet">
     <title>NYSecure</title>
   </head>
   <link rel="stylesheet" href="../static/styles.css" />
   <body>
+    <!-- Top Navigation Menu -->
+    <div class="topnav">
+      <a href=/reporting class="active">Reporting</a>
+      <!-- navigation links to other pages (hidden) -->
+      <div id="myLinks">
+        <a href=/login>Login</a>
+        <a href=/summary>Summary</a>
+        <!-- <a href=/logout>About</a>  -->
+        <!-- NOTE: implement displaying either login or logout only, depending on login status -->
+      </div>
+      <!-- Bar icon  -->
+      <a href="javascript:void(0);" class="icon" onclick="myFunction()">☰</a>
+    </div>
+
     <h1>Reporting</h1>
     <form action="/update" method="POST">
-      <input
-        type="text"
-        name="student_name"
-        placeholder="Full Name (as in NRIC)"
-      />
-      <div
-        style="
-          display: flex;
-          flex-direction: row;
-          justify-content: space-between;
-          align-items: center;
-          margin: 10% 0;
-        "
-      >
-        <label for="location" style="color: white">Location:</label>
-        <select name="location" id="location" required="true">
+      <div>
+        <p><label for="student_name">Name</label></p>
+        <p><input type="text" name="student_name" placeholder="Full Name (as in NRIC)"></p>
+      </div>
+      <!-- <div style="display:flex; flex-direction:row; justify-content:space-between; align-items:center; margin:10% 0;"> -->
+        <p><label for="location">Location</label></p>
+        <p><select name="location" id="location" required="true">
           {% for location in locations_list %}
           <option value="{{ location }}">{{ location }}</option>
           {% endfor %}
-        </select>
+        </select></p>
       </div>
       <div>
-        <input type="submit" value="Submit" />
+        <input type="submit" value="submit">
       </div>
     </form>
   </body>
+
+    <!-- javascript to toggle navigation links when user clicks on bar icon -->
+    <script>
+      function myFunction() {
+        var x = document.getElementById("myLinks");
+        if (x.style.display === "block") {
+          x.style.display = "none";
+        } else {
+          x.style.display = "block";
+        }
+      }
+      </script>
 </html>
