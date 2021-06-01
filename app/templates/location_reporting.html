@@ -59,7 +59,7 @@
           x.style.display = "block";
         }
       }
-      var locations_list = {{locations_list}}
+      
 
       function autocomplete(inp, arr) {
       /*the autocomplete function takes two arguments,
@@ -157,7 +157,7 @@
         closeAllLists(e.target);
     });
     }
-
-    autocomplete(document.getElementById("location"), locations_list);
-      </script>
+    var locations_list = {{locations_list}}
+    autocomplete(document.getElementById("locations"), locations_list);
+    </script>
 </html>
