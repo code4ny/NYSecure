@@ -62,4 +62,4 @@ def summary():
     """
     Show the blocks and number of students.
     """
-    raise NotImplementedError
+    return render_template('summary.html')

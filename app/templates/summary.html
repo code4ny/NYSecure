@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>NYSecure</title>
+  </head>
+  <body>
+    <div class="header">
+    <h1>Location Data</h1>
+    </div>
+    <br>
+    <div id="app">
+        <data-summary :blocklist="blocklist"
+        :floorlist="floorlist" :locationsdata="locationsdata"></data-summary>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="{{url_for('static', filename='script.js')}}"></script>
+  </body>
+</html>
