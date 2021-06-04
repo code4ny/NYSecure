@@ -6,6 +6,7 @@ import time
 
 from flask_login import UserMixin
 import psycopg2
+import psycopg2.extras
 
 from app.config import DATABASE_URI
 
