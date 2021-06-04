@@ -42,7 +42,7 @@ def reporting():
     return render_template("location_reporting.html", locations_list=locations_list)
 
 
-@app.route("/update")
+@app.route("/update", methods=['POST'])
 def update():
     """
     Update the database based on the location being reported.
