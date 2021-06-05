@@ -42,7 +42,7 @@ def reporting():
     return render_template("location_reporting.html", locations_list=locations_list)
 
 
-@app.route("/update", methods=['POST'])
+@app.route("/update", methods=["POST"])
 def update():
     """
     Update the database based on the location being reported.
@@ -50,8 +50,8 @@ def update():
     Returns:
         redirect("reporting")
     """
-    userid = None  # TODO: Ryan&JianSan
-    assert False, "userid to be corrected. DELETE line when done!"
+    userid = current_user.id  # TODO: Ryan&JianSan
+    # assert False, "userid to be corrected. DELETE line when done!"
     location = request.form.get("location")
     ds.update_report(userid, location)
     return redirect("/reporting")
@@ -62,4 +62,4 @@ def summary():
     """
     Show the blocks and number of students.
     """
-    return render_template('summary.html')
+    return render_template("summary.html")
