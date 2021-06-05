@@ -4,7 +4,7 @@ Vue.component('data-summary', {
         blocklist: Object,
         iss: Object,
         locationsdata: Object,
-        updatedtime: Object,
+        updatedtime: String,
     },
     delimiters: ['[[', ']]'],
     template: `
