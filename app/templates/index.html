@@ -1,44 +1,54 @@
 <!-- Not Needed for now -->
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NYSecure</title>
+    <link rel="stylesheet" href="../static/styles.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cabin&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NYSecure</title>
-  <link rel="stylesheet" href="/static/styles.css" />
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Cabin&display=swap" rel="stylesheet">
-</head>
-
-<body>
-  <!-- Top Navigation Menu -->
-  <!-- <div class="topnav">
+  <body>
+    <!-- Top Navigation Menu -->
+    <!-- <div class="topnav">
     <a href=/ class="active">Login</a> -->
     <!-- navigation links to other pages (hidden) -->
     <!-- <div id="myLinks">
       <a href=/reporting>Reporting</a> -->
 
-      <!-- {% if current_user.type == 'staff' %}  
+    <!-- {% if current_user.type == 'staff' %}  
           <a href=/summary>Summary</a>
       {% endif %} -->
-      <!-- <a href=/logout>About</a>  -->
-      <!-- NOTE: implement displaying either login or logout only, depending on login status -->
+    <!-- <a href=/logout>About</a>  -->
+    <!-- NOTE: implement displaying either login or logout only, depending on login status -->
     <!-- </div> -->
     <!-- Bar icon  -->
     <!-- <a href="javascript:void(0);" class="icon" onclick="myFunction()">☰</a>
   </div> -->
 
-  <h1>Login</h1>
-  <a class="button" href="/login">
-    <img src="/app/static/google_login_focus.png" alt="Google login button">
-  </a>
-</body>
+    <h1>Login</h1>
+    <a class="button" href="/login">
+      <img
+        src="/static/google_login_normal.png"
+        onclick="this.src='/static/googled_login_clicked.png'"
+        alt="Google login"
+      />
+    </a>
+  </body>
+  `
 
-<!-- javascript to toggle navigation links when user clicks on bar icon -->
-<!-- <script>
+  <!-- javascript to toggle navigation links when user clicks on bar icon -->
+  <!-- <script>
   function myFunction() {
     var x = document.getElementById("myLinks");
     if (x.style.display === "block") {
@@ -48,5 +58,4 @@
     }
   }
 </script> -->
-
 </html>
