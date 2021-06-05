@@ -33,27 +33,33 @@
     </div>
 
     <h1>Reporting</h1>
-    <form autocomplete="off" action="/update" method="POST">
-      <div>
-        <p><label for="student_name">Name</label></p>
-        <p><input type="text" name="student_name" placeholder="Full Name (as in NRIC)"></p>
-      </div>
-      <!-- <div style="display:flex; flex-direction:row; justify-content:space-between; align-items:center; margin:10% 0;"> -->
-        <div class="autocomplete" style="width: 300px;"> 
-        <p><label for="location">Location</label></p>
-        <input id="location" type="text" name="location" placeholder="Your Location">
+    {% if current_user.is_authenticated %}
+      <form autocomplete="off" action="/update" method="POST">
+        <div>
+          <p><label for="student_name">Name</label></p>
+          <p><input type="text" name="student_name" placeholder="Full Name (as in NRIC)"></p>
         </div>
-        <!-- idea is for students to type in their location but as they type show suggestions for the location. -->
+        <!-- <div style="display:flex; flex-direction:row; justify-content:space-between; align-items:center; margin:10% 0;"> -->
+          <div class="autocomplete" style="width: 300px;"> 
+          <p><label for="location">Location</label></p>
+          <input id="location" type="text" name="location" placeholder="Your Location">
+          </div>
+          <!-- idea is for students to type in their location but as they type show suggestions for the location. -->
 
-        <!-- <p><select name="location" id="location" required="true">
-          {% for location in locations_list %}
-          <option value="{{ location }}">{{ location }}</option>
-          {% endfor %} -->
-        <!-- </select></p> -->
-      <div>
-        <input type="submit" value="submit">
-      </div>
-    </form>
+          <!-- <p><select name="location" id="location" required="true">
+            {% for location in locations_list %}
+            <option value="{{ location }}">{{ location }}</option>
+            {% endfor %} -->
+          <!-- </select></p> -->
+        <div>
+          <input type="submit" value="submit">
+        </div>
+      </form>
+    {% else %}
+      <p style='font-family:Cabin, sans-serif; font-size:17px; color:#ffffff;'>
+        Please <a href=/ style='color:#50ffee'>login</a> to report your location.
+      </p>
+    {% endif %}
   </body>
 
     <!-- javascript to toggle navigation links when user clicks on bar icon -->
