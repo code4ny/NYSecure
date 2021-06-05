@@ -30,20 +30,9 @@
   </div>
 
   <h1>Login</h1>
-  {% if current_user.is_authenticated %}
-  <p>
-    Hello, {{ current_user.name }}! You're logged in! Email: {{ current_user.email }}
-  </p>
-  <div>
-    <p>Google Profile Picture:</p>
-    <img src="{{ current_user.profile_pic }}" alt="Google profile pic" />
-  </div>
-  <a class="button" href="/logout">Logout</a>
-  {% else %}
   <a class="button" href="/login">
     <img src="/app/static/google_login_focus.png" alt="Google login button">
   </a>
-  {% endif %}
 </body>
 
 <!-- javascript to toggle navigation links when user clicks on bar icon -->
