@@ -55,10 +55,9 @@ input[type="submit"] {
 }
 input[type="submit"]:hover {
   cursor: pointer;
-  background-color: white;
+  background-color: #434343;
   border: 5px solid #fce38a;
   color: #fce38a;
-  text-shadow: 0 2px 2px #00000080;
 }
 .topnav {
   overflow: hidden;
