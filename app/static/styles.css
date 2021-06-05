@@ -80,8 +80,8 @@ input[type="submit"]:hover {
 }
 /* style the hamburger menu */
 .topnav a.icon {
-  background: #fc5185;
-  border: 1px solid white;
+  background: #ffffff;
+  color: #434343;
   display: block;
   position: absolute;
   font-family: 'Cabin', sans-serif;
@@ -97,8 +97,8 @@ input[type="submit"]:hover {
 /* active link (current page) */
 a.active {
   font-family: 'Cabin', sans-serif;
-  background-color: #3fc1c9;
-  color: #ffffff;
+  background-color: #fce38a;
+  color: #434343;
 }
 label {
   font-family: 'Cabin', sans-serif;

@@ -16,8 +16,15 @@
       <a href=/reporting class="active">Reporting</a>
       <!-- navigation links to other pages (hidden) -->
       <div id="myLinks">
-        <a href=/login>Login</a>
-        <a href=/summary>Summary</a>
+        {% if current_user.is_authenticated %}
+          <a href=/ >Login</a>
+        {% else %}
+          <a href=/logout>Log out</a>
+        {% endif %}
+        
+        {% if current_user.type == 'staff' %}  
+          <a href=/summary>Summary</a>
+        {% endif %}
         <!-- <a href=/logout>About</a>  -->
         <!-- NOTE: implement displaying either login or logout only, depending on login status -->
       </div>
