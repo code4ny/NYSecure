@@ -6,7 +6,6 @@ h1 {
   color: #fce38a;
   font-family: 'Kumbh Sans', sans-serif;
   font-size: 10vw;
-  border: 2px #fc5185;
   margin: 8vh 6vw;
 }
 
@@ -27,7 +26,7 @@ select {
   align-items:center; 
   margin:10% 0;
   border-radius: 2px;
-  border: 2px #434343;
+  border: 2px solid #434343;
   color: #434343;
   background-color: white;
 }
@@ -42,22 +41,24 @@ input[type="text"] {
   text-align: left;
   background-color: white;
   color: #434343;
-  border: 2px #434343;
+  border: 2px solid #434343;
 }
 input[type="submit"] {
   border-radius: 10px;
-  font-size: 1em;
+  font-size: 2vw;
   font-family: 'Cabin', sans-serif;
   box-sizing: border-box;
-  width: 20vw;
+  padding: 2vw 5vw;
   background-color: #fce38a;
   color: #434343;
+  border: 5px solid #fce38a;
 }
 input[type="submit"]:hover {
   cursor: pointer;
   background-color: white;
-  border: 2px #fce38a;
-  color: #434343;
+  border: 5px solid #fce38a;
+  color: #fce38a;
+  text-shadow: 0 2px 2px #00000080;
 }
 .topnav {
   overflow: hidden;
@@ -80,7 +81,7 @@ input[type="submit"]:hover {
 /* style the hamburger menu */
 .topnav a.icon {
   background: #fc5185;
-  border: 2px white;
+  border: 1px solid white;
   display: block;
   position: absolute;
   font-family: 'Cabin', sans-serif;
