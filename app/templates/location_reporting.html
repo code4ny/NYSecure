@@ -33,10 +33,18 @@
     </div>
 
     <h1>Reporting</h1>
-    <form autocomplete="off" action="/update" method="POST">
       {% if authenticated %}
       <div>
         <p> Hello, {{current_user.name}}.</p>
+        <div class="autocomplete" style="width: 300px;"> 
+          <form>
+          <p><label for="location">Location</label></p>
+          <input id="location" type="text" name="location" placeholder="Your Location">
+          </div>
+          <div>
+            <input type="submit" value="submit">
+          </div>
+        </form>
       </div>
       {%else%}
       <div>
@@ -44,14 +52,7 @@
       </div>
       {%endif%}
       <!-- <div style="display:flex; flex-direction:row; justify-content:space-between; align-items:center; margin:10% 0;"> -->
-        <div class="autocomplete" style="width: 300px;"> 
-        <p><label for="location">Location</label></p>
-        <input id="location" type="text" name="location" placeholder="Your Location">
-        </div>
-        <div>
-          <input type="submit" value="submit">
-        </div>
-      </form>
+        
   </body>
 
     <!-- javascript to toggle navigation links when user clicks on bar icon -->
