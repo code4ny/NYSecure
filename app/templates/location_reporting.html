@@ -27,10 +27,15 @@
 
     <h1>Reporting</h1>
     <form autocomplete="off" action="/update" method="POST">
+      {% if authenticated %}
       <div>
-        <p><label for="student_name">Name</label></p>
-        <p><input type="text" name="student_name" placeholder="Full Name (as in NRIC)"></p>
+        <p> Hello, {{current_user.name}}.</p>
       </div>
+      {%else%}
+      <div>
+        <p> Hello, you are not logged in. Please log in to view the reporting page.</p>
+      </div>
+      {%endif%}
       <!-- <div style="display:flex; flex-direction:row; justify-content:space-between; align-items:center; margin:10% 0;"> -->
         <div class="autocomplete" style="width: 300px;"> 
         <p><label for="location">Location</label></p>

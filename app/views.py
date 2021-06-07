@@ -39,7 +39,13 @@ def reporting():
     """
     # locations_list is the list of all the possible location that they can report.
     locations_list = ds.get_locations_list()
-    return render_template("location_reporting.html", locations_list=locations_list)
+    if current_user.is_authenticated:
+        return render_template(
+            "location_reporting.html", authenticated=True, current_user=current_user
+        )
+    else:
+        return render_template("location_reporting.html", authenticated=False)
+    # return render_template("location_reporting.html", locations_list=locations_list)
 
 
 @app.route("/update")
