@@ -1,13 +1,16 @@
-body {
-    background-color: rgb(255, 225, 225);
-    font-family: 'Montserrat', sans-serif;
+* {
+  font-family: 'Kumbh Sans', sans-serif;
 }
-
+body {
+  background-color: #364f6b;
+  text-align: center;
+}
 h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 36px;
-    margin-left: 30px;
-    
+  color: #fce38a;
+  font-family: 'Kumbh Sans', sans-serif;
+  font-size: 8vw;
+  border: 2px #fc5185;
+  margin: 8vh 6vw;
 }
 
 .header {
@@ -46,9 +49,8 @@ h1 {
     margin-left: 20px;
 }
 
-
 label {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Kumbh Sans', sans-serif;
   font-size: 20px;
 }
 
@@ -56,7 +58,7 @@ table {
   border: 1px solid black;
   border-collapse: collapse;
   width: 100%;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Kumbh Sans', sans-serif;
 }
 
 th, td {

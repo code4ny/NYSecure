@@ -2,9 +2,11 @@
 
 import os
 import json
+import time
 
 from flask_login import UserMixin
 import psycopg2
+import psycopg2.extras
 
 from app.config import DATABASE_URI
 
@@ -106,8 +108,23 @@ class DataStore:
         Returns:
             str/int: Denote whether the update was sucessful. If not success, the reason why. Similar to status code 200,404 etc.
         """
-        # TODO: Backend
-        raise NotImplementedError
+        conn = self.get_connection()
+        cur = conn.cursor()
+
+        current_time = time.localtime()
+        offset = '+08'
+        timestamp = time.strftime('%Y-%m-%d %H:%M:%S', current_time) + offset
+        
+        try:
+            cur.execute('''INSERT INTO Report(Location, ReportingTime, UserID, Pax)
+                        VALUES (%s, %s, %s, %s)
+                        '''
+                        ,(location, timestamp, userid, pax))
+            conn.commit()
+        except Exception as e:
+            return e
+        else:
+            return 'Success'
 
     def insert_user(self, userdict):
         """

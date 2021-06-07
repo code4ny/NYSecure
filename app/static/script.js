@@ -3,18 +3,22 @@ Vue.component('data-summary', {
         floorlist: Object,
         blocklist: Object,
         iss: Object,
-        locationsdata: Object
+        locationsdata: Object,
+        updatedtime: String,
     },
     delimiters: ['[[', ']]'],
     template: `
     <div class="content">
-          <span class="tabs" 
+         <p style="text-align:left;">
+         <span class="tabs" 
                 :class="{ activeTab: selectedTab === tab }"
                 v-for="(tab, index) in tabs"
                 @click="selectedTab = tab"
                 :key="tab"
           >[[ tab ]]</span>
-
+          <span style="float:right;">[[ updatedtime ]]</span>
+        </p>
+        
         <div v-show="selectedTab === 'Table Summary'" class="box">
             <table>
                 <tr>
@@ -131,10 +135,12 @@ var app = new Vue({
       api_URL: 'https://nysecure.herokuapp.com/api/v1/locationdata',
       floorlist:{'1':'Level 1', '2':'Level 2', '3':'Level 3', '4':'Level 4', '5':'Level 5'},
       blocklist: {'main_block':'Main Building', 'lecture_block':'Lecture Theatres', 'science_block':'Science Labs'},
-      locationsdata: {}
+      locationsdata: {},
+      updatedtime: '-'
   },
   created() {
     this.getLocations()
+    this.update()
     this.timer = setInterval(this.getLocations, 5000);
   },
   methods: {
@@ -143,11 +149,20 @@ var app = new Vue({
             const response = await fetch
             (this.api_URL);
             const data = await response.json();
-            console.log(data)
+            this.update()
             return this.locationsdata = data
       },
       cancelAutoUpdate() {
             clearInterval(this.timer);
+      },
+      update() {
+          let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+          let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+          let d = new Date()
+          let str = "Last updated: "
+          str += (days[d.getDay()] +', '+ months[d.getMonth()] + ' ' + d.getDate() +' '+ d.getFullYear()+', ')
+          str += d.toLocaleTimeString()
+          return this.updatedtime = str
       }
   },
   beforeDestroy() {

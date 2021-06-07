@@ -3,6 +3,7 @@
 Database processing should be done in the the `database.py` file as much as possible.
 """
 
+from flask.helpers import url_for
 from app import app
 from flask import render_template, redirect, request
 
@@ -20,13 +21,10 @@ def root():
     Otherwise, redirect to the reporting page.
     """
     ds.get_connection()
-    return render_template("index.html")
-    # if current_user.is_authenticated:
-    #     return render_template(
-    #         "index.html", authenticated=True, current_user=current_user
-    #     )
-    # else:
-    #     return render_template("index.html", authenticated=False)
+    if current_user.is_authenticated:
+        return redirect(url_for("reporting"))
+    else:
+        return render_template("index.html")
 
 
 @app.route("/reporting")
@@ -48,7 +46,7 @@ def reporting():
     # return render_template("location_reporting.html", locations_list=locations_list)
 
 
-@app.route("/update")
+@app.route("/update", methods=["POST"])
 def update():
     """
     Update the database based on the location being reported.
@@ -56,8 +54,8 @@ def update():
     Returns:
         redirect("reporting")
     """
-    userid = None  # TODO: Ryan&JianSan
-    assert False, "userid to be corrected. DELETE line when done!"
+    userid = current_user.id  # TODO: Ryan&JianSan
+    # assert False, "userid to be corrected. DELETE line when done!"
     location = request.form.get("location")
     ds.update_report(userid, location)
     return redirect("/reporting")
@@ -68,4 +66,4 @@ def summary():
     """
     Show the blocks and number of students.
     """
-    return render_template('summary.html')
+    return render_template("summary.html")
