@@ -42,8 +42,7 @@ def reporting():
             "location_reporting.html", authenticated=True, current_user=current_user
         )
     else:
-        return render_template("location_reporting.html", authenticated=False)
-    # return render_template("location_reporting.html", locations_list=locations_list)
+        return render_template("location_reporting.html", authenticated=False, locations_list=locations_list)
 
 
 @app.route("/update", methods=["POST"])
