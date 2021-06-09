@@ -1,12 +1,17 @@
+* {
+  font-family: "Kumbh Sans", sans-serif;
+}
+
 body {
   background-color: #364f6b;
   text-align: center;
+  margin: 0px;
 }
+
 h1 {
   color: #fce38a;
-  font-family: 'Kumbh Sans', sans-serif;
+  font-family: "Kumbh Sans", sans-serif;
   font-size: 10vw;
-  border: 2px #fc5185;
   margin: 8vh 6vw;
 }
 
@@ -14,93 +19,205 @@ form {
   display: flex;
   flex-direction: column;
   margin: 5vh 10vw;
-  font-family: 'Cabin', sans-serif;
+  font-family: "Cabin", sans-serif;
 }
-select {
-  flex-grow: 1;
-  margin-left: 5vw;
-  border-radius: 10px;
-  padding: 10px;
-  display:flex; 
-  flex-direction:row; 
-  justify-content:space-between; 
-  align-items:center; 
-  margin:10% 0;
-  border-radius: 2px;
-  border: 2px #434343;
-  color: #434343;
-  background-color: white;
-}
+
 input {
-  /* required: true; */
-  margin: 4% 0%;
-  padding: 2%;
+  margin: 5px;
+  padding: max(7px, 1vh) 6px;
 }
+
+label {
+  font-family: "Cabin", sans-serif;
+  color: white;
+  font-size: max(20px, 4vw);
+}
+
 input[type="text"] {
   border-radius: 2px;
-  font-family: 'Cabin', sans-serif;
+  font-family: "Cabin", sans-serif;
   text-align: left;
   background-color: white;
   color: #434343;
-  border: 2px #434343;
+  border: 2px solid #434343;
 }
+
 input[type="submit"] {
   border-radius: 10px;
-  font-size: 1em;
-  font-family: 'Cabin', sans-serif;
+  font-size: max(2vw, 18px);
+  font-family: "Cabin", sans-serif;
   box-sizing: border-box;
-  width: 20vw;
+  margin-top: max(15px, 5vh);
+  padding: 2vw 5vw;
   background-color: #fce38a;
   color: #434343;
+  border: 5px solid #fce38a;
 }
+
 input[type="submit"]:hover {
   cursor: pointer;
-  background-color: white;
-  border: 2px #fce38a;
-  color: #434343;
+  background-color: #434343;
+  border: 5px solid #fce38a;
+  color: #fce38a;
 }
+
 .topnav {
   overflow: hidden;
-  /* background-color: #333; */
   position: relative;
-  font-family: 'Cabin', sans-serif;
+  font-family: "Cabin", sans-serif;
 }
+
 .topnav #myLinks {
   display: none;
 }
+
 .topnav a {
   color: white;
   background-color: #434343;
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
-  font-family: 'Cabin', sans-serif;
+  font-family: "Cabin", sans-serif;
   display: block;
 }
+
 /* style the hamburger menu */
 .topnav a.icon {
-  background: #fc5185;
-  border: 2px white;
+  background: #ffffff;
+  color: #434343;
   display: block;
   position: absolute;
-  font-family: 'Cabin', sans-serif;
+  font-family: "Cabin", sans-serif;
   right: 0;
   top: 0;
 }
+
 /* change background color of hamburger menu to grey when hovering */
 .topnav a:hover {
-  font-family: 'Cabin', sans-serif;
+  font-family: "Cabin", sans-serif;
   background-color: #ffffff;
   color: #434343;
 }
+
 /* active link (current page) */
 a.active {
-  font-family: 'Cabin', sans-serif;
-  background-color: #3fc1c9;
+  font-family: "Cabin", sans-serif;
+  background-color: #fce38a;
+  color: #434343;
+}
+
+#locations-autocomplete-list {
+  /*the container must be positioned relative:*/
+  position: relative;
+  display: inline-block;
+  overflow-y: scroll;
+  max-height: 45vh;
+}
+
+.autocomplete-item {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fffffff0;
+  border-bottom: 1px solid #d4d4d4;
+}
+.autocomplete-item:hover {
+  background-color: #d6d6d6;
+}
+.autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: DodgerBlue !important;
   color: #ffffff;
 }
-label {
-  font-family: 'Cabin', sans-serif;
-  color: white;
-  font-size: 17px;
+
+.header {
+  border: 3px rgb(192, 192, 192);
+  border-radius: 25px;
+  background-color: white;
+  text-align: left;
+  padding: 10px;
+  margin: 10px;
+  margin-bottom: 0px;
+  color: auto;
+}
+
+.content {
+  border: 3px rgb(192, 192, 192);
+  border-radius: 25px;
+  background-color: white;
+  text-align: left;
+  padding: 30px;
+  margin: 10px;
+  margin-top: 5px;
+}
+
+.box {
+  border: 1px solid rgb(224, 224, 224);
+  border-radius: 15px;
+  background-color: white;
+  text-align: left;
+  padding: 20px;
+  margin: 5px;
+  margin-top: 10px;
+}
+
+table {
+  border: 1px solid black;
+  border-collapse: collapse;
+  width: 100%;
+  font-family: "Kumbh Sans", sans-serif;
+}
+
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 5px;
+  height: 40px;
+}
+
+.tabs {
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+.activeTab {
+  color: #16c0b0;
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 600px) {
+  .header {
+    width: 70vmax;
+    width: 100vw;
+  }
+  .box {
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+  .content {
+    width: fit-content;
+    margin: 5px;
+    padding: 1vw;
+    border-radius: 7px;
+  }
+  table {
+    width: 70vmax;
+    margin: 10px 0px;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .content {
+    margin: 0;
+    padding: 10px 2px;
+  }
+  table {
+    margin: 10px 0px;
+  }
+  .header {
+    width: 65vmax;
+    border: 0;
+    text-align: center;
+  }
 }

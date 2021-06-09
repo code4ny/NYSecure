@@ -6,6 +6,7 @@ import time
 
 from flask_login import UserMixin
 import psycopg2
+import psycopg2.extras
 
 from app.config import DATABASE_URI
 
@@ -54,7 +55,7 @@ class DataStore:
         result = cur.fetchall()
         return [row[0] for row in result]
 
-    def get_summary(self, block=None, level=None):
+    def get_summary(self, block=None, level=None, cached_result=None):
         """Return all the locations with their associated number of people there.
 
         Filtered based on condition.
@@ -62,6 +63,7 @@ class DataStore:
         Args:
             block (str, optional): Locations with that block. Defaults to None, which will return all.
             level (str, optional): The level of the location. Defaults to None, which will return all.
+            cached_result (dict, optional): Output similar to fetching from psql database. Defaults to None, which will pull from database.
 
         Returns:
             dict: Contains all the required values. If invalid filter, return None.
@@ -74,14 +76,15 @@ class DataStore:
 
         for location in locations:
             locationpax_dict[location] = 0
-
-        cur.execute(
-            """SELECT * 
-            FROM Report 
-            ORDER BY ReportingTime DESC;"""
-        )
-
-        result = cur.fetchall()
+        if cached_result is None:
+            cur.execute(
+                """SELECT * 
+                FROM Report 
+                ORDER BY ReportingTime DESC;"""
+            )
+            result = cur.fetchall()
+        else:
+            result = cached_result
 
         userids = set()
 
@@ -102,7 +105,6 @@ class DataStore:
 
         if len(locationpax_dict) < 1:
             return None
-
         return locationpax_dict
 
     def update_report(self, userid, location, pax=1):
@@ -120,19 +122,21 @@ class DataStore:
         cur = conn.cursor()
 
         current_time = time.localtime()
-        offset = '+08'
-        timestamp = time.strftime('%Y-%m-%d %H:%M:%S', current_time) + offset
-        
+        offset = "+08"
+        timestamp = time.strftime("%Y-%m-%d %H:%M:%S", current_time) + offset
+
         try:
-            cur.execute('''INSERT INTO Report(Location, ReportingTime, UserID, Pax)
+            cur.execute(
+                """INSERT INTO Report(Location, ReportingTime, UserID, Pax)
                         VALUES (%s, %s, %s, %s)
-                        '''
-                        ,(location, timestamp, userid, pax))
+                        """,
+                (location, timestamp, userid, pax),
+            )
             conn.commit()
         except Exception as e:
             return e
         else:
-            return 'Success'
+            return "Success"
 
     def insert_user(self, userdict):
         """
@@ -184,12 +188,20 @@ class DataStore:
 
 
 class User(UserMixin):
+    """User class for flask-login.
+
+    https://flask-login.readthedocs.io/en/latest/index.html#your-user-class
+    """
+
     def __init__(self, id_, name, email, type_, profile_pic):
         self.id = id_
         self.name = name
         self.email = email
         self.type = type_
         self.profile_pic = profile_pic
+
+    def get_id(self):
+        return self.id
 
     @classmethod
     def get(cls, ds, user_id):
@@ -208,7 +220,7 @@ class User(UserMixin):
             return None
         else:
             user = cls(
-                usr["id"], usr["name"], usr["email"], usr["type"], usr["profilepic"]
+                usr["userid"], usr["name"], usr["email"], usr["type"], usr["profilepic"]
             )
             return user
 

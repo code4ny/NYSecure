@@ -44,6 +44,7 @@ def login():
         authorization_endpoint,
         redirect_uri=request.base_url + "/callback",
         scope=["openid", "email", "profile"],
+        hd="nyjc.edu.sg",
     )
     return redirect(request_uri)
 
@@ -84,14 +85,20 @@ def callback():
         type_ = "staff"
     else:
         type_ = "student"
-    user = User(unique_id, users_name, users_email, type_, picture)
 
-    # Adds user to database if it does not exist
-    if User.get(a, unique_id) is None:
-        user.to_db(a)
+    # Additional check for nyjc account
+    domain = users_email.split("@")[1]
+    if domain != "nyjc.edu.sg":
+        return redirect(url_for("root"))
+    else:
+        user = User(unique_id, users_name, users_email, type_, picture)
 
-    login_user(user)
-    return redirect(url_for("root"))  # redirect after the login
+        # Adds user to database if it does not exist
+        if User.get(a, unique_id) is None:
+            user.to_db(a)
+
+        login_user(user, remember=True)
+        return redirect(url_for("root"))  # redirect after the login
 
 
 @app.route("/logout")

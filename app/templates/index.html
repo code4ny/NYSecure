@@ -7,53 +7,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NYSecure</title>
     <link rel="stylesheet" href="/static/styles.css" />
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cabin&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cabin&display=swap"
+      rel="stylesheet"
+    />
   </head>
+
   <body>
-    <!-- Hin: menu bar for summary, reporting location, login/logout page -->
-    <!-- Top Navigation Menu -->
-    <div class="topnav">
-      <a href=/login class="active">Login</a>
-      <!-- navigation links to other pages (hidden) -->
-      <div id="myLinks">
-        <a href=/reporting>Reporting</a>
-        <a href=/summary>Summary</a>
-        <!-- <a href=/logout>About</a>  -->
-        <!-- NOTE: implement displaying either login or logout only, depending on login status -->
-      </div>
-      <!-- Bar icon  -->
-      <a href="javascript:void(0);" class="icon" onclick="myFunction()">☰</a>
-    </div>
-
     <h1>Login</h1>
-    {% if authenticated %}
-    <p>
-      Hello, {{ current_user.name }}! You're logged in! Email: {{ current_user.email }}
-    </p>
-    <div>
-      <p>Google Profile Picture:</p>
-      <img src="{{ current_user.profile_pic }}" alt="Google profile pic" />
-    </div>
-    <a class="button" href="/logout">Logout</a>
-    {% else %}
     <a class="button" href="/login">
-      <img src="/app/static/google_login_focus.png" alt="Google login button">
+      <img
+        src="/static/google_login_normal.png"
+        onclick="this.src='/static/googled_login_clicked.png'"
+        alt="Google login"
+        style="width: min(80vw, 340px)"
+      />
     </a>
-    {% endif %}
   </body>
-
-  <!-- javascript to toggle navigation links when user clicks on bar icon -->
-  <script>
-    function myFunction() {
-      var x = document.getElementById("myLinks");
-      if (x.style.display === "block") {
-        x.style.display = "none";
-      } else {
-        x.style.display = "block";
-      }
-    }
-    </script>
-
 </html>
