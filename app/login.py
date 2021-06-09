@@ -97,7 +97,7 @@ def callback():
         if User.get(a, unique_id) is None:
             user.to_db(a)
 
-        login_user(user)
+        login_user(user, remember=True)
         return redirect(url_for("root"))  # redirect after the login
 
 

@@ -13,7 +13,7 @@
       href="https://fonts.googleapis.com/css2?family=Cabin&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="/static/styles.css" />
     <title>NYSecure</title>
   </head>
   <body>
@@ -37,7 +37,7 @@
     <h1>Reporting</h1>
     {% if authenticated %}
     <p>Hello, {{current_user.name}}.</p>
-    <form>
+    <form action="/update" method="POST">
       <div>
         <!-- This div is required to ensure that the autocomplete list is added below the text field-->
         <label for="location">Location</label>
