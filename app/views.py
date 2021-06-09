@@ -60,10 +60,13 @@ def update():
     Returns:
         redirect("reporting")
     """
-    userid = current_user.id
     location = request.form.get("location")
-    ds.update_report(userid, location)
-    return redirect("/reporting")
+    userid = current_user.get_id()
+    if userid is not None:
+        ds.update_report(userid, location)
+        return redirect("/reporting")
+    print(current_user)
+    return (current_user)
 
 
 @app.route("/summary")
