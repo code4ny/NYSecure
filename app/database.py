@@ -55,7 +55,7 @@ class DataStore:
         result = cur.fetchall()
         return [row[0] for row in result]
 
-    def get_summary(self, block=None, level=None, cached_result=None):
+    def get_summary(self, block=None, level=None):
         """Return all the locations with their associated number of people there.
 
         Filtered based on condition.
@@ -63,7 +63,6 @@ class DataStore:
         Args:
             block (str, optional): Locations with that block. Defaults to None, which will return all.
             level (str, optional): The level of the location. Defaults to None, which will return all.
-            cached_result (dict, optional): Output similar to fetching from psql database. Defaults to None, which will pull from database.
 
         Returns:
             dict: Contains all the required values. If invalid filter, return None.
@@ -76,15 +75,12 @@ class DataStore:
 
         for location in locations:
             locationpax_dict[location] = 0
-        if cached_result is None:
-            cur.execute(
-                """SELECT * 
-                FROM Report 
-                ORDER BY ReportingTime DESC;"""
-            )
-            result = cur.fetchall()
-        else:
-            result = cached_result
+        cur.execute(
+            """SELECT * 
+            FROM Report 
+            ORDER BY ReportingTime DESC;"""
+        )
+        result = cur.fetchall()
 
         userids = set()
 
