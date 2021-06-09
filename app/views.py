@@ -11,7 +11,6 @@ from flask import render_template, redirect, request
 from app.database import DataStore
 from app.login import current_user
 
-    return (current_use
 ds = DataStore()
 
 
