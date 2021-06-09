@@ -4,166 +4,178 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cabin&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cabin&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/static/styles.css">
     <title>NYSecure</title>
   </head>
-  <link rel="stylesheet" href="../static/styles.css" />
   <body>
     <!-- Top Navigation Menu -->
     <div class="topnav">
-      <a href=/reporting class="active">Reporting</a>
-      <!-- navigation links to other pages (hidden) -->
+      <a href="/reporting" class="active">Reporting</a>
+      <!-- navigation links to other pages (hidden, till click) -->
       <div id="myLinks">
         {% if authenticated %}
-          <a href=/logout>Log out</a>
+        <a href="/logout">Log out</a>
         {% else %}
-          <a href=/ >Login</a>
+        <a href="/">Login</a>
+        {% endif %} {% if current_user.type == 'staff' %}
+        <a href="/summary">Summary</a>
         {% endif %}
-        
-        {% if current_user.type == 'staff' %}  
-          <a href=/summary>Summary</a>
-        {% endif %}
-        <!-- <a href=/logout>About</a>  -->
-        <!-- NOTE: implement displaying either login or logout only, depending on login status -->
       </div>
       <!-- Bar icon  -->
-      <a href="javascript:void(0);" class="icon" onclick="myFunction()">☰</a>
+      <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">☰</a>
     </div>
 
     <h1>Reporting</h1>
-      {% if authenticated %}
+    {% if authenticated %}
+    <p>Hello, {{current_user.name}}.</p>
+    <form>
       <div>
-        <p> Hello, {{current_user.name}}.</p>
-        <div class="autocomplete" style="width: 300px;"> 
-          <form>
-          <p><label for="location">Location</label></p>
-          <input id="location" type="text" name="location" placeholder="Your Location">
-          </div>
-          <div>
-            <input type="submit" value="submit">
-          </div>
-        </form>
+        <!-- This div is required to ensure that the autocomplete list is added below the text field-->
+        <label for="location">Location</label>
+        <br />
+        <input
+          id="location"
+          type="text"
+          name="location"
+          placeholder="Your Location"
+          style="margin-bottom: 0.1px"
+        />
+        <br />
       </div>
-      {%else%}
       <div>
-        <p> Hello, you are not logged in. Please log in to view the reporting page.</p>
+        <input type="submit" value="submit" />
       </div>
-      {%endif%}
-      <!-- <div style="display:flex; flex-direction:row; justify-content:space-between; align-items:center; margin:10% 0;"> -->
-        
+    </form>
+    {% else %}
+    <div>
+      <p>
+        Hello, you are not logged in. Please <a href="/">login</a> to view the
+        reporting page.
+      </p>
+    </div>
+    {% endif %}
   </body>
 
-    <!-- javascript to toggle navigation links when user clicks on bar icon -->
-    <script>
-      function myFunction() {
-        var x = document.getElementById("myLinks");
-        if (x.style.display === "block") {
-          x.style.display = "none";
-        } else {
-          x.style.display = "block";
-        }
+  <script>
+    function toggleMenu() {
+      // toggle navigation links when user clicks on bar icon
+      var x = document.getElementById("myLinks");
+      if (x.style.display === "block") {
+        x.style.display = "none";
+      } else {
+        x.style.display = "block";
       }
-      
+    }
 
-      function autocomplete(inp, arr) {
+    function autocomplete(inp, arr) {
       /*the autocomplete function takes two arguments,
       the text field element and an array of possible autocompleted values:*/
-        var currentFocus;
-        /*execute a function when someone writes in the text field:*/
-        inp.addEventListener("input", function(e) {
-            var a, b, i, val = this.value;
-            /*close any already open lists of autocompleted values*/
-            closeAllLists();
-            if (!val) { return false;}
-            currentFocus = -1;
-            /*create a DIV element that will contain the items (values):*/
-            a = document.createElement("DIV");
-            a.setAttribute("id", this.id + "autocomplete-list");
-            a.setAttribute("class", "autocomplete-items");
-            /*append the DIV element as a child of the autocomplete container:*/
-            this.parentNode.appendChild(a);
-            /*for each item in the array...*/
-            for (i = 0; i < arr.length; i++) {
-              /*check if the item starts with the same letters as the text field value:*/
-              if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
-                /*create a DIV element for each matching element:*/
-                b = document.createElement("DIV");
-                /*make the matching letters bold:*/
-                b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-                b.innerHTML += arr[i].substr(val.length);
-                /*insert a input field that will hold the current array item's value:*/
-                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
-                /*execute a function when someone clicks on the item value (DIV element):*/
-                    b.addEventListener("click", function(e) {
-                    /*insert the value for the autocomplete text field:*/
-                    inp.value = this.getElementsByTagName("input")[0].value;
-                    /*close the list of autocompleted values,
-                    (or any other open lists of autocompleted values:*/
-                    closeAllLists();
-                });
-                a.appendChild(b);
-              }
-            }
-      });
-      /*execute a function presses a key on the keyboard:*/
-      inp.addEventListener("keydown", function(e) {
-          var x = document.getElementById(this.id + "autocomplete-list");
-          if (x) x = x.getElementsByTagName("div");
-          if (e.keyCode == 40) {
-            /*If the arrow DOWN key is pressed,
-            increase the currentFocus variable:*/
-            currentFocus++;
-            /*and and make the current item more visible:*/
-            addActive(x);
-          } else if (e.keyCode == 38) { //up
-            /*If the arrow UP key is pressed,
-            decrease the currentFocus variable:*/
-            currentFocus--;
-            /*and and make the current item more visible:*/
-            addActive(x);
-          } else if (e.keyCode == 13) {
-            /*If the ENTER key is pressed, prevent the form from being submitted,*/
-            e.preventDefault();
-            if (currentFocus > -1) {
-              /*and simulate a click on the "active" item:*/
-              if (x) x[currentFocus].click();
-            }
+      var currentFocus;
+      /*execute a function when someone writes in the text field:*/
+
+      inp.addEventListener("input", function (e) {
+        var val = inp.value;
+        closeAllLists();
+        if (val === "") return false;
+        currentFocus = -1;
+        locations_autocomplete_list = document.createElement("div");
+        locations_autocomplete_list.setAttribute(
+          "id",
+          "locations-autocomplete-list"
+        );
+        /*append locations_autocomplete_list after the input field*/
+        inp.parentNode.appendChild(locations_autocomplete_list);
+        for (i = 0; i < arr.length; i++) {
+          /*check if the item starts with the same letters as the text field value:*/
+          if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+            // elm is individual element of the result
+            elm = document.createElement("div");
+            elm.setAttribute("class", "autocomplete-item");
+            /*make the matching letters bold:*/
+            elm.innerHTML =
+              "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+            elm.innerHTML += arr[i].substr(val.length);
+            /*insert an input field that will hold the current array item's value:*/
+            elm.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+            elm.addEventListener("click", function (e) {
+              /*insert the value for the autocomplete text field:*/
+              inp.value = this.getElementsByTagName("input")[0].value;
+              closeAllLists();
+            });
+            locations_autocomplete_list.appendChild(elm);
           }
+        }
       });
+
+      /*execute a function presses a key on the keyboard:*/
+      inp.addEventListener("keydown", function (e) {
+        var x = document.getElementById("locations-autocomplete-list");
+        if (x) x = x.getElementsByTagName("div");
+        if (e.keyCode == 40) {
+          /*If the arrow DOWN key is pressed,
+            increase the currentFocus variable:*/
+          currentFocus++;
+          /*and and make the current item more visible:*/
+          addActive(x);
+        } else if (e.keyCode == 38) {
+          //up
+          /*If the arrow UP key is pressed,
+            decrease the currentFocus variable:*/
+          currentFocus--;
+          /*and and make the current item more visible:*/
+          addActive(x);
+        } else if (e.keyCode == 13) {
+          /*If the ENTER key is pressed, prevent the form from being submitted,*/
+          e.preventDefault();
+          if (currentFocus > -1) {
+            /*and simulate a click on the "active" item:*/
+            if (x) x[currentFocus].click();
+          }
+        }
+      });
+
       function addActive(x) {
         /*a function to classify an item as "active":*/
         if (!x) return false;
         /*start by removing the "active" class on all items:*/
         removeActive(x);
         if (currentFocus >= x.length) currentFocus = 0;
-        if (currentFocus < 0) currentFocus = (x.length - 1);
+        if (currentFocus < 0) currentFocus = x.length - 1;
         /*add class "autocomplete-active":*/
         x[currentFocus].classList.add("autocomplete-active");
       }
+
       function removeActive(x) {
         /*a function to remove the "active" class from all autocomplete items:*/
         for (var i = 0; i < x.length; i++) {
           x[i].classList.remove("autocomplete-active");
         }
       }
-      function closeAllLists(elmnt) {
-        /*close all autocomplete lists in the document,
-        except the one passed as an argument:*/
-        var x = document.getElementsByClassName("autocomplete-items");
-        for (var i = 0; i < x.length; i++) {
-          if (elmnt != x[i] && elmnt != inp) {
-          x[i].parentNode.removeChild(x[i]);
+
+      function closeAllLists() {
+        // close all autocomplete lists in the document
+        var x = document.getElementById("locations-autocomplete-list");
+        if (x !== null) {
+          x.parentNode.removeChild(x);
         }
       }
+
+      /*execute a function when someone clicks in the document:*/
+      document.addEventListener("click", function (e) {
+        closeAllLists();
+      });
     }
-    /*execute a function when someone clicks in the document:*/
-    document.addEventListener("click", function (e) {
-        closeAllLists(e.target);
-    });
-    }
+
     var locations_list = {{ locations_list|tojson }};
     autocomplete(document.getElementById("location"), locations_list);
-    </script>
+  </script>
 </html>
