@@ -47,6 +47,8 @@
       Your last reported location is at {{ lastReportedLoc }} on {{
       lastReportedTime }}
     </p>
+    {% else %}
+    <p>You haven't reported!</p>
     {% endif %}
     <form action="/update" method="POST">
       <div>
