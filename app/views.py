@@ -4,7 +4,7 @@ Database processing should be done in the the `database.py` file as much as poss
 """
 from time import sleep
 
-from flask import render_template, redirect, request
+from flask import render_template, redirect, request, make_response
 from flask.helpers import url_for
 
 from app import app
@@ -37,11 +37,16 @@ def reporting():
     """
     # locations_list is the list of all the possible location that they can report.
     locations_list = ds.get_locations_list()
-
+    lastReportedLoc = request.cookies.get("lastReportedLoc", None)
+    lastReportedTime = request.cookies.get("lastReportedTime", None)
+    haveSubmitted = bool(request.cookies.get("haveSubmitted", False))
     return render_template(
         "location_reporting.html",
         current_user=current_user,
         locations_list=locations_list,
+        haveSubmitted=haveSubmitted,
+        lastReportedLoc=lastReportedLoc,
+        lastReportedTime=lastReportedTime,
     )
 
 
@@ -55,10 +60,20 @@ def update():
     """
     location = request.form.get("location")
     userid = request.form.get("current_user_id")
+    current_time = request.form.get("current_time")
     if userid is not None:
         ds.update_report(userid, location)
-        return redirect("/reporting")
-    return 'Please try again! <a href="/reporting">return back</a>'
+        resp = make_response(redirect("/reporting"))
+        resp.set_cookie("lastReportedLoc", location)
+        resp.set_cookie("lastReportedTime", current_time)
+        resp.set_cookie("haveSubmitted", 1)
+        return resp
+    else:
+        resp = make_response(
+            'Please try again! <br /><a href="/reporting">return back</a>'
+        )
+        resp.set_cookie("haveSubmitted", 0)
+        return resp
 
 
 @app.route("/summary")
