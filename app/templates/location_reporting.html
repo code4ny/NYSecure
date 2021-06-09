@@ -17,6 +17,7 @@
     <style>
       p {
         color: white;
+        margin: 10px;
       }
     </style>
     <title>NYSecure</title>
@@ -40,8 +41,6 @@
     </div>
 
     <h1>Reporting</h1>
-    {% if current_user.is_authenticated %}
-    <p style="margin: 10px">Hello, {{current_user.name}}.</p>
     {% if haveSubmitted %}
     <p>
       Your last reported location is at {{ lastReportedLoc }} on {{
@@ -49,7 +48,9 @@
     </p>
     {% else %}
     <p>You haven't reported!</p>
-    {% endif %}
+    {% endif %} {% if current_user.is_authenticated %}
+    <p>Hello, {{current_user.name}}.</p>
+
     <form action="/update" method="POST">
       <div>
         <!-- This div is required to ensure that the autocomplete list is added below the text field-->
