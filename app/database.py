@@ -211,7 +211,7 @@ class User(UserMixin):
             return None
         else:
             user = cls(
-                usr["id"], usr["name"], usr["email"], usr["type"], usr["profilepic"]
+                usr["userid"], usr["name"], usr["email"], usr["type"], usr["profilepic"]
             )
             return user
 

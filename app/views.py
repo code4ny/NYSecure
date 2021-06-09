@@ -11,6 +11,7 @@ from flask import render_template, redirect, request
 from app.database import DataStore
 from app.login import current_user
 
+    return (current_use
 ds = DataStore()
 
 
@@ -66,7 +67,7 @@ def update():
         ds.update_report(userid, location)
         return redirect("/reporting")
     print(str(current_user))
-    return str(current_user)
+    return 'Please try again! <a href="/reporting">return back</a>'
 
 
 @app.route("/summary")
