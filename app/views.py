@@ -40,6 +40,7 @@ def reporting():
     lastReportedLoc = request.cookies.get("lastReportedLoc", None)
     lastReportedTime = request.cookies.get("lastReportedTime", None)
     haveSubmitted = bool(request.cookies.get("haveSubmitted", False))
+    sleep(1)
     return render_template(
         "location_reporting.html",
         current_user=current_user,

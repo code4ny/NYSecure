@@ -42,7 +42,7 @@
     <h1>Reporting</h1>
     {% if current_user.is_authenticated %}
     <p style="margin: 10px">Hello, {{current_user.name}}.</p>
-    {% if have_submitted %}
+    {% if haveSubmitted %}
     <p>
       Your last reported location is at {{ lastReportedLoc }} on {{
       lastReportedTime }}
