@@ -20,7 +20,6 @@ def root():
 
     Otherwise, redirect to the reporting page.
     """
-    current_user = current_user
     sleep(2)  # to give time to authenticate
     if current_user.is_authenticated:
         return redirect(url_for("reporting"))
@@ -41,7 +40,6 @@ def reporting():
     lastReportedLoc = request.cookies.get("lastReportedLoc", None)
     lastReportedTime = request.cookies.get("lastReportedTime", None)
     haveSubmitted = bool(request.cookies.get("haveSubmitted", False))
-    current_user = current_user
     sleep(1)
     return render_template(
         "location_reporting.html",
@@ -75,7 +73,9 @@ def update():
         resp = make_response(
             'Please try again! <br /><a href="/reporting">return back</a>'
         )
-        resp.set_cookie("haveSubmitted", "", expires=0)  # cookies immediately expires, equivalent to deleting
+        resp.set_cookie(
+            "haveSubmitted", "", expires=0
+        )  # cookies immediately expires, equivalent to deleting
         return resp
 
 
