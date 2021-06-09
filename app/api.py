@@ -22,10 +22,11 @@ def get_location_data():
               }
     """
     datas = {}
+    all_result = ds.get_summary()
     for block in BLOCKS:
         datas[block] = {}
-        for level in range(1, 6):
-            result = ds.get_summary(block=block, level=str(level))
+        for level in range(1, 5):
+            result = ds.get_summary(block=block, level=str(level), cached_result=all_result)
             if result is not None:
                 result = sum(result.values())
             datas[block][level] = result

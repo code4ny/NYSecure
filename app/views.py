@@ -65,7 +65,6 @@ def update():
     if userid is not None:
         ds.update_report(userid, location)
         return redirect("/reporting")
-    print(str(current_user))
     return 'Please try again! <a href="/reporting">return back</a>'
 
 

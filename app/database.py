@@ -55,7 +55,7 @@ class DataStore:
         result = cur.fetchall()
         return [row[0] for row in result]
 
-    def get_summary(self, block=None, level=None):
+    def get_summary(self, block=None, level=None, cached_result=None):
         """Return all the locations with their associated number of people there.
 
         Filtered based on condition.
@@ -76,12 +76,14 @@ class DataStore:
 
         for location in locations:
             locationpax_dict[location] = 0
-
-        cur.execute(
-            """SELECT DISTINCT ON (UserID) Location,ReportingTime,UserID,Pax 
-                    FROM (SELECT * FROM Report ORDER BY ReportingTime DESC) as foo;"""
-        )
-        result = cur.fetchall()
+        if cached_result is None:
+            cur.execute(
+                """SELECT DISTINCT ON (UserID) Location,ReportingTime,UserID,Pax 
+                        FROM (SELECT * FROM Report ORDER BY ReportingTime DESC) as foo;"""
+            )
+            result = cur.fetchall()
+        else:
+            result = cached_result
 
         filtered = []
 
@@ -94,7 +96,6 @@ class DataStore:
 
         if len(locationpax_dict) < 1:
             return None
-
         return locationpax_dict
 
     def update_report(self, userid, location, pax=1):
@@ -192,7 +193,6 @@ class User(UserMixin):
 
     def get_id(self):
         return self.id
-    
 
     @classmethod
     def get(cls, ds, user_id):
