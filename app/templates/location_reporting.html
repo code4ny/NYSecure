@@ -14,6 +14,11 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/static/styles.css" />
+    <style>
+      p {
+        color: white;
+      }
+    </style>
     <title>NYSecure</title>
   </head>
   <body>
@@ -36,7 +41,8 @@
 
     <h1>Reporting</h1>
     {% if current_user.is_authenticated %}
-    <p style="margin: 10px; color: white">Hello, {{current_user.name}}.</p>
+    <p style="margin: 10px">Hello, {{current_user.name}}.</p>
+    <p id="last-reported-infos"></p>
     <form action="/update" method="POST">
       <div>
         <!-- This div is required to ensure that the autocomplete list is added below the text field-->
@@ -52,7 +58,7 @@
         <br />
       </div>
       <div>
-        <input type="submit" value="submit" />
+        <input type="button" value="submit" onclick="submitForm()" />
       </div>
       <input
         hidden
@@ -71,7 +77,9 @@
     {% endif %}
   </body>
 
-  <script>
+  <script defer>
+    window.onload = setLastReportedInfo();
+
     function toggleMenu() {
       // toggle navigation links when user clicks on bar icon
       var x = document.getElementById("myLinks");
@@ -79,6 +87,62 @@
         x.style.display = "none";
       } else {
         x.style.display = "block";
+      }
+    }
+    function submitForm() {
+      console.log("submit form ");
+      setLastReportedCookies();
+      console.log("setLastReported");
+      document.getElementsByTagName("form")[0].submit();
+      console.log("submitted");
+    }
+    function setCookies(cname, cvalue, exdays, path = "/") {
+      /*
+      Function wrapper to help set cookies.
+
+      Args:
+        cname: cookies name
+        cvalue: value of the corresponding cookies
+        exdays: number of days till expire
+        path: the path to store the cookies at, default to '/'
+
+      */
+      var d = new Date();
+      const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
+      d.setTime(d.getTime() + exdays * ONE_DAY_IN_MS);
+      var expirydate = d.toUTCString();
+      document.cookie =
+        cname + "=" + cvalue + ";" + "expires=" + expirydate + ";path=" + path;
+    }
+
+    function getCookie(cname) {
+      row = document.cookie.split("; ").find((row) => row.startsWith(cname));
+      return row ? row.split("=")[1] : null;
+    }
+
+    function setLastReportedCookies() {
+      console.log("setting cookies!");
+      console.log(document);
+      page_path = "/reporting";
+      location = document.getElementById("location").value;
+      console.log("location is:");
+      console.log(location);
+      setCookies("lastReportedLocation", location, 1, (path = page_path));
+
+      current_date_time = new Date().toLocaleString();
+      setCookies("lastReportedTime", current_date_time, 1, (path = page_path));
+    }
+
+    function setLastReportedInfo() {
+      var location = getCookie("lastReportedLocation");
+      var time = getCookie("lastReportedTime");
+      if (location == null || time == null) {
+        document.getElementById("last-reported-infos").innerHTML =
+          "You haven't reported!";
+      } else {
+        document.getElementById(
+          "last-reported-infos"
+        ).innerHTML = `Your last reported location was at ${location} on ${time}`;
       }
     }
 

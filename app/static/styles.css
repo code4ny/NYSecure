@@ -42,7 +42,7 @@ input[type="text"] {
   border: 2px solid #434343;
 }
 
-input[type="submit"] {
+input[type="button"] {
   border-radius: 10px;
   font-size: max(2vw, 18px);
   font-family: "Cabin", sans-serif;
@@ -54,7 +54,7 @@ input[type="submit"] {
   border: 5px solid #fce38a;
 }
 
-input[type="submit"]:hover {
+input[type="button"]:hover {
   cursor: pointer;
   background-color: #434343;
   border: 5px solid #fce38a;

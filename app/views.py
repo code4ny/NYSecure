@@ -20,7 +20,7 @@ def root():
 
     Otherwise, redirect to the reporting page.
     """
-    sleep(1.5)  # to give time to authenticate
+    sleep(2)  # to give time to authenticate
     if current_user.is_authenticated:
         return redirect(url_for("reporting"))
     else:
