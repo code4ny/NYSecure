@@ -22,7 +22,7 @@
       <a href="/reporting" class="active">Reporting</a>
       <!-- navigation links to other pages (hidden, till click) -->
       <div id="myLinks">
-        {% if authenticated %}
+        {% if current_user.is_authenticated %}
         <a href="/logout">Log out</a>
         {% else %}
         <a href="/">Login</a>
@@ -35,7 +35,7 @@
     </div>
 
     <h1>Reporting</h1>
-    {% if authenticated %}
+    {% if current_user.is_authenticated %}
     <p style="margin: 10px; color: white">Hello, {{current_user.name}}.</p>
     <form action="/update" method="POST">
       <div>

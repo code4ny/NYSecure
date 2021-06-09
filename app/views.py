@@ -2,12 +2,12 @@
 
 Database processing should be done in the the `database.py` file as much as possible.
 """
+from time import sleep
 
-from flask.helpers import url_for
-from app import app
 from flask import render_template, redirect, request
+from flask.helpers import url_for
 
-# from flask_login import current_user
+from app import app
 from app.database import DataStore
 from app.login import current_user
 
@@ -20,7 +20,7 @@ def root():
 
     Otherwise, redirect to the reporting page.
     """
-    ds.get_connection()
+    sleep(1.5)  # to give time to authenticate
     if current_user.is_authenticated:
         return redirect(url_for("reporting"))
     else:
@@ -37,19 +37,12 @@ def reporting():
     """
     # locations_list is the list of all the possible location that they can report.
     locations_list = ds.get_locations_list()
-    if current_user.is_authenticated:
-        return render_template(
-            "location_reporting.html",
-            authenticated=True,
-            current_user=current_user,
-            locations_list=locations_list,
-        )
-    else:
-        return render_template(
-            "location_reporting.html",
-            authenticated=False,
-            locations_list=locations_list,
-        )
+
+    return render_template(
+        "location_reporting.html",
+        current_user=current_user,
+        locations_list=locations_list,
+    )
 
 
 @app.route("/update", methods=["POST"])
