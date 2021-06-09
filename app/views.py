@@ -39,10 +39,17 @@ def reporting():
     locations_list = ds.get_locations_list()
     if current_user.is_authenticated:
         return render_template(
-            "location_reporting.html", authenticated=True, current_user=current_user
+            "location_reporting.html",
+            authenticated=True,
+            current_user=current_user,
+            locations_list=locations_list,
         )
     else:
-        return render_template("location_reporting.html", authenticated=False, locations_list=locations_list)
+        return render_template(
+            "location_reporting.html",
+            authenticated=False,
+            locations_list=locations_list,
+        )
 
 
 @app.route("/update", methods=["POST"])
@@ -53,8 +60,7 @@ def update():
     Returns:
         redirect("reporting")
     """
-    userid = current_user.id  # TODO: Ryan&JianSan
-    # assert False, "userid to be corrected. DELETE line when done!"
+    userid = current_user.id
     location = request.form.get("location")
     ds.update_report(userid, location)
     return redirect("/reporting")
