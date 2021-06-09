@@ -36,7 +36,7 @@
 
     <h1>Reporting</h1>
     {% if authenticated %}
-    <p>Hello, {{current_user.name}}.</p>
+    <p style="margin: 10px; color: white">Hello, {{current_user.name}}.</p>
     <form action="/update" method="POST">
       <div>
         <!-- This div is required to ensure that the autocomplete list is added below the text field-->
@@ -54,6 +54,12 @@
       <div>
         <input type="submit" value="submit" />
       </div>
+      <input
+        hidden
+        type="text"
+        value="{{ current_user.id }}"
+        name="current_user_id"
+      />
     </form>
     {% else %}
     <div>
