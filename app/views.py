@@ -66,13 +66,13 @@ def update():
         resp = make_response(redirect("/reporting"))
         resp.set_cookie("lastReportedLoc", location)
         resp.set_cookie("lastReportedTime", current_time)
-        resp.set_cookie("haveSubmitted", 1)
+        resp.set_cookie("haveSubmitted", True)
         return resp
     else:
         resp = make_response(
             'Please try again! <br /><a href="/reporting">return back</a>'
         )
-        resp.set_cookie("haveSubmitted", 0)
+        resp.set_cookie("haveSubmitted", False)
         return resp
 
 
