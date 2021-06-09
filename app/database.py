@@ -112,19 +112,21 @@ class DataStore:
         cur = conn.cursor()
 
         current_time = time.localtime()
-        offset = '+08'
-        timestamp = time.strftime('%Y-%m-%d %H:%M:%S', current_time) + offset
-        
+        offset = "+08"
+        timestamp = time.strftime("%Y-%m-%d %H:%M:%S", current_time) + offset
+
         try:
-            cur.execute('''INSERT INTO Report(Location, ReportingTime, UserID, Pax)
+            cur.execute(
+                """INSERT INTO Report(Location, ReportingTime, UserID, Pax)
                         VALUES (%s, %s, %s, %s)
-                        '''
-                        ,(location, timestamp, userid, pax))
+                        """,
+                (location, timestamp, userid, pax),
+            )
             conn.commit()
         except Exception as e:
             return e
         else:
-            return 'Success'
+            return "Success"
 
     def insert_user(self, userdict):
         """
@@ -176,12 +178,21 @@ class DataStore:
 
 
 class User(UserMixin):
+    """User class for flask-login.
+
+    https://flask-login.readthedocs.io/en/latest/index.html#your-user-class
+    """
+
     def __init__(self, id_, name, email, type_, profile_pic):
         self.id = id_
         self.name = name
         self.email = email
         self.type = type_
         self.profile_pic = profile_pic
+
+    def get_id(self):
+        return self.id
+    
 
     @classmethod
     def get(cls, ds, user_id):
