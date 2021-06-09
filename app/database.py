@@ -69,7 +69,6 @@ class DataStore:
         conn = self.get_connection()
         cur = conn.cursor()
 
-        resultlist = []
         locations = self.get_locations_list(block, level)
         locationpax_dict = dict()
 
@@ -77,19 +76,29 @@ class DataStore:
             locationpax_dict[location] = 0
 
         cur.execute(
-            """SELECT DISTINCT ON (UserID) Location,ReportingTime,UserID,Pax 
-                    FROM (SELECT * FROM Report ORDER BY ReportingTime DESC) as foo;"""
+            """SELECT * 
+            FROM Report 
+            ORDER BY ReportingTime DESC;"""
         )
+
         result = cur.fetchall()
 
-        filtered = []
+        userids = set()
 
-        for index, row in enumerate(result):
-            if row[0] in locations:
-                filtered.append(row)
+        filtered0 = []
+        filtered1 = []
 
-        for row in filtered:
-            locationpax_dict[row[0]] += 1
+        for row in result:
+            if row[3] not in userids:
+                filtered0.append(row)
+                userids.add(row[3])
+
+        for index, row in enumerate(filtered0):
+            if row[1] in locations:
+                filtered1.append(row)
+
+        for row in filtered1:
+            locationpax_dict[row[1]] += 1
 
         if len(locationpax_dict) < 1:
             return None
