@@ -63,6 +63,7 @@ class DataStore:
         Args:
             block (str, optional): Locations with that block. Defaults to None, which will return all.
             level (str, optional): The level of the location. Defaults to None, which will return all.
+            cached_result (dict, optional): Output similar to fetching from psql database. Defaults to None, which will pull from database.
 
         Returns:
             dict: Contains all the required values. If invalid filter, return None.
