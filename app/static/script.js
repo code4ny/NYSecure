@@ -36,10 +36,10 @@ Vue.component("data-summary", {
 
         <div v-show="selectedTab === 'By Blocks'">
             <div v-for="block in Object.keys(processedblock)" class="box">
-                <label>[[ blocklist[block] ]]</label>
+                <label id="summarylabel">[[ blocklist[block] ]]</label>
                 <ul>
                     <li v-for="floor in Object.keys(processedblock[block])" v-if="processedblock[block][floor] !== null">
-                    <label v-if="floor === 'Total'">Total</label>
+                    <label id="summarylabel" v-if="floor === 'Total'">Total</label>
                     [[ floorlist[floor] ]]: [[ processedblock[block][floor] ]] people
                     </li>
                 </ul>
@@ -48,10 +48,10 @@ Vue.component("data-summary", {
 
         <div v-show="selectedTab === 'By Floor'">
             <div v-for="floor in Object.keys(processedfloor)" class="box">
-                <label>[[ floorlist[floor] ]]</label>
+                <label id="summarylabel">[[ floorlist[floor] ]]</label>
                 <ul>
                     <li v-for="block in Object.keys(processedfloor[floor])" v-if="processedfloor[floor][block] !== null">
-                    <label v-if="block === 'Total'">Total</label>
+                    <label id="summarylabel" v-if="block === 'Total'">Total</label>
                     [[ blocklist[block] ]]: [[ processedfloor[floor][block] ]] people
                     </li>
                 </ul>
