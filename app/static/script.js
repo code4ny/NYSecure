@@ -9,14 +9,14 @@ Vue.component("data-summary", {
   delimiters: ["[[", "]]"],
   template: `
     <div class="content">
-         <p style="text-align:left;">
+         <p id="header" style="text-align:left;">
          <span class="tabs" 
                 :class="{ activeTab: selectedTab === tab }"
                 v-for="(tab, index) in tabs"
                 @click="selectedTab = tab"
                 :key="tab"
           >[[ tab ]]</span>
-          <span style="float:right; padding-bottom: 10px; margin-left:5px">[[ updatedtime ]]</span>
+          <span id="timestamp" style="float:right; margin-left:5px">[[ updatedtime ]]</span>
         </p>
         
         <div v-show="selectedTab === 'Table Summary'" class="box">

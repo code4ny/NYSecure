@@ -130,9 +130,9 @@ a.active {
 }
 
 #summarylabel {
-  font-family: 'Kunbh Sans', sans-serif;
+  font-family: "Kunbh Sans", sans-serif;
   font-size: 20px;
-  color:black;
+  color: black;
 }
 
 .header {
@@ -192,38 +192,15 @@ td {
 }
 
 @media screen and (max-width: 600px) {
-  .header {
-    width: 70vmax;
-    width: 100vw;
-  }
   .box {
     border: 0;
     padding: 0;
     margin: 0;
   }
   .content {
-    width: fit-content;
     margin: 5px;
     padding: 1vw;
     border-radius: 7px;
-  }
-  table {
-    width: 70vmax;
-    margin: 10px 0px;
-  }
-}
-
-@media screen and (max-width: 470px) {
-  .content {
-    margin: 0;
-    padding: 10px 2px;
-  }
-  table {
-    margin: 10px 0px;
-  }
-  .header {
-    width: 65vmax;
-    border: 0;
-    text-align: center;
+    overflow-x: auto;
   }
 }

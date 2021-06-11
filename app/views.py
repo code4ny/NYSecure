@@ -2,7 +2,6 @@
 
 Database processing should be done in the the `database.py` file as much as possible.
 """
-from time import sleep
 
 from flask import render_template, redirect, request, make_response
 from flask.helpers import url_for
@@ -20,7 +19,6 @@ def root():
 
     Otherwise, redirect to the reporting page.
     """
-    sleep(2)  # to give time to authenticate
     if current_user.is_authenticated:
         return redirect(url_for("reporting"))
     else:
@@ -37,17 +35,19 @@ def reporting():
     """
     # locations_list is the list of all the possible location that they can report.
     locations_list = ds.get_locations_list()
-    lastReportedLoc = request.cookies.get("lastReportedLoc", None)
-    lastReportedTime = request.cookies.get("lastReportedTime", None)
+    lastReportLoc = request.cookies.get("lastReportedLoc", None)
+    lastReportTime = request.cookies.get("lastReportedTime", None)
     haveSubmitted = bool(request.cookies.get("haveSubmitted", False))
-    sleep(1)
+    last_submitted_message = (
+        f"Your last reported location is {lastReportLoc} on {lastReportTime}"
+        if haveSubmitted
+        else "You haven't reported!"
+    )
     return render_template(
         "location_reporting.html",
         current_user=current_user,
         locations_list=locations_list,
-        haveSubmitted=haveSubmitted,
-        lastReportedLoc=lastReportedLoc,
-        lastReportedTime=lastReportedTime,
+        last_submitted_message = last_submitted_message
     )
 
 
