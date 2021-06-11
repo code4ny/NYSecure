@@ -12,7 +12,7 @@ CONTENT_SECURITY_POLICY = {
         [
             "'self'",
             "'unsafe-inline'",  # to remove the unsafe-inline for extra safety, currently needed for the menu bar.
-            "'unsafe-eval'"  # from summary page.
+            "'unsafe-eval'",  # from summary page.
             "https://cdn.jsdelivr.net/npm/vue/dist/vue.js",
         ]
     ),

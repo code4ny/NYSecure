@@ -47,7 +47,7 @@ def reporting():
         "location_reporting.html",
         current_user=current_user,
         locations_list=locations_list,
-        last_submitted_message = last_submitted_message
+        last_submitted_message=last_submitted_message,
     )
 
 
