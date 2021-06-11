@@ -12,8 +12,7 @@ CONTENT_SECURITY_POLICY = {
         [
             "'self'",
             "'unsafe-inline'",  # to remove the unsafe-inline for extra safety, currently needed for the menu bar.
-            "fonts.googleapis.com",
-            "fonts.gstatic.com",
+            "'unsafe-eval'"  # from summary page.
             "https://cdn.jsdelivr.net/npm/vue/dist/vue.js",
         ]
     ),
@@ -21,7 +20,8 @@ CONTENT_SECURITY_POLICY = {
         [
             "'self'",
             "'unsafe-inline'",
-            "'unsafe-eval'"
+            "fonts.googleapis.com",
+            "fonts.gstatic.com",
         ]
     ),
 }
