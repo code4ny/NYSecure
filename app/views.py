@@ -84,4 +84,4 @@ def summary():
     """
     Show the blocks and number of students.
     """
-    return render_template("summary.html")
+    return render_template("summary.html", current_user=current_user)
