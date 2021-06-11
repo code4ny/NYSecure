@@ -25,7 +25,6 @@ def get_google_provider_cfg():
     return requests.get(google_discovery_url).json()
 
 
-app.secret_key = os.urandom(24)
 login_manager = LoginManager()
 login_manager.init_app(app)
 client = WebApplicationClient(google_client_id)
