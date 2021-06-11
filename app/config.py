@@ -6,14 +6,14 @@ CONTENT_SECURITY_POLICY = {
     "default-src": " ".join(
         [
             "'self'",
-            "fonts.googleapis.com",
-            "fonts.gstatic.com",
         ]
     ),
     "script-src": " ".join(
         [
             "'self'",
             "'unsafe-inline'",  # to remove the unsafe-inline for extra safety, currently needed for the menu bar.
+            "fonts.googleapis.com",
+            "fonts.gstatic.com",
             "https://cdn.jsdelivr.net/npm/vue/dist/vue.js",
         ]
     ),

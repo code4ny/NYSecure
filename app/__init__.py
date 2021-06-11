@@ -12,7 +12,7 @@ Talisman(
     app,
     force_https=True,  # Ensure that url uses https for google login
     force_https_permanent=True,  # show that url has permanent relocation
-    content_security_policy=CONTENT_SECURITY_POLICY
+    content_security_policy=CONTENT_SECURITY_POLICY,
 )
 
 app.secret_key = os.environ.get("app_secret_key", os.urandom(24))
