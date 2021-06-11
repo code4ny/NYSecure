@@ -21,6 +21,10 @@ CONTENT_SECURITY_POLICY = {
             "'self'",
             "'unsafe-inline'",
             "fonts.googleapis.com",
+        ]
+    ),
+    "font-src": " ".join(
+        [
             "fonts.gstatic.com",
         ]
     ),
