@@ -2,10 +2,16 @@
 
 ## Project Structure
 
-- Codes to be in folder named app.
-- Main flask code is in `app/views.py`
-- To run the flask code, run the run.py file.
+- Codes to be in the folder named `app`.
+- `api.py` : url and logic for requests to be made
+- `config.py` : To contain the configuration of some of the globally used variables
+- `database.py` : Codes to manipulate the database
+- `login.py` : Login logic and url to login
+- `views.py` : To view the page. Avoid processing data here.
+
+- To run the flask code, run the `run.py` file.
 - Create any other files needed to improve the structure.
+- Schema (database, api, css class): https://docs.google.com/document/d/1cnTBuBVuUCJdrRCjcoP0eZie31BGKTb4XK3g6L5Tw-s/edit?usp=sharing
 
 ## Project Specifications (for MVP)
 
@@ -14,26 +20,19 @@
 ### Reporting page
 
 - Should obtain the information:
-    + name
-    + location
-    + is the room secure against intrusion?
+  - name
+  - location
+  - is the room secure against intrusion?
 
 ### Summary page
 
-- Shows the number of people at each block. 
+- Shows the number of people at each block.
 - When clicked, get data, and show locations at the block and the number of people.
 
-## Job Scope
+## Heroku
 
-### Backend
-- Come up with a database schema
-- Able to update the database based on data from location_reporting
-- Appropriate data structure/object to be passed to render template
-
-### Frontend
-- Design the page and beautify it.
-- Coding the html to display all datas (including the jinja expressions)
-
+- Go to `http://nysecure.herokuapp.com/` to view the app
+- Maintenance mode to be on by default.
 
 # Help and Documentation
 
@@ -43,14 +42,13 @@
 
 1. Clone this git: `git clone https://github.com/code4ny/NYSecure.git`
 1. Change base branch to push/pull from: `git branch -u origin/development`
-    - If unsure, just push/pull from here for now.
-
+   - If unsure, just push/pull from here for now.
 
 ### Rough Git Workflow
 
 (Assumed that the repository is set up)
 
-1. Select correct branch.
+1. Select the correct branch.
 1. Pull: `git pull`
 1. Edit files.
 1. Add edited file: `git add <filename>`
@@ -58,7 +56,7 @@
 1. Push: `git push`
 1. Go github to merge branch if needed.
 
-p.s. If you are using vscode, there is a source control tab that you can use to do step 4-5. And small refresh icons at the bottom for you to push/pull. The branch name at the bottom. So you don't need to use command line. 
+p.s. If you are using vscode, there is a source control tab that you can use to do step 4-5. And small refresh icons at the bottom for you to push/pull. The branch name is at the bottom. So you don't need to use the command line. Or download any other git gui.
 
 ### Useful commands list
 

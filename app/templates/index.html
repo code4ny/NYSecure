@@ -6,9 +6,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NYSecure</title>
-    <link rel="stylesheet" href="../../static/styles.css" />
+    <link rel="stylesheet" href="/static/styles.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cabin&display=swap"
+      rel="stylesheet"
+    />
   </head>
+
   <body>
-    <h1>Home Page</h1>
+    <h1>Login</h1>
+    <p style="font-size: min(5vw, 24px);">Please sign in with your NYJC account to report your location.</p>
+    <a class="button" href="/login">
+      <img
+        src="/static/google_login_normal.png"
+        onclick="this.src='/static/googled_login_clicked.png'"
+        alt="Google login"
+        style="width: min(80vw, 340px)"
+      />
+    </a>
   </body>
 </html>
