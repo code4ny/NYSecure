@@ -21,6 +21,7 @@ CONTENT_SECURITY_POLICY = {
         [
             "'self'",
             "'unsafe-inline'",
+            "'unsafe-eval'"
         ]
     ),
 }
