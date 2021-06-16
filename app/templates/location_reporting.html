@@ -57,10 +57,13 @@
           name="location"
           placeholder="Your Location"
           style="margin-bottom: 0.1px"
+          onfocus="focusLocationInput()"
+          onblur="unfocusLocationInput()"
           required
         />
         <br />
       </div>
+
       <div>
         <input type="submit" value="submit" />
       </div>
@@ -91,12 +94,24 @@
   </body>
 
   <script defer>
-    window.onload = setTime()
+    window.onload = setTime();
 
     function setTime() {
-      document.getElementById("current_time").value = new Date().toLocaleString()
+      document.getElementById("current_time").value =
+        new Date().toLocaleString();
     }
 
+    function focusLocationInput() {
+      elm = document.getElementById("location");
+      elm.parentElement.style.marginBottom = "50vh";
+
+      // scroll till location is at the top of the page.
+      elm.previousElementSibling.previousElementSibling.scrollIntoView();
+    }
+    function unfocusLocationInput() {
+      elm = document.getElementById("location");
+      elm.parentElement.style.marginBottom = "5px";
+    }
     function toggleMenu() {
       // toggle navigation links when user clicks on bar icon
       var x = document.getElementById("myLinks");

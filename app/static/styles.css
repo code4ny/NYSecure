@@ -111,7 +111,7 @@ a.active {
   position: relative;
   display: inline-block;
   overflow-y: scroll;
-  max-height: 45vh;
+  max-height: 40vh;
 }
 
 .autocomplete-item {
