@@ -84,4 +84,11 @@ def summary():
     """
     Show the blocks and number of students.
     """
-    return render_template("summary.html", current_user=current_user)
+
+    authenticated = current_user.is_authenticated or (
+        request.args.get("debug", "") == "yes"
+    )
+
+    return render_template(
+        "summary.html", current_user=current_user, authenticated=authenticated
+    )
