@@ -1,3 +1,5 @@
+// Vue Component js for summary page only
+
 Vue.component("data-summary", {
   props: {
     floorlist: Object,

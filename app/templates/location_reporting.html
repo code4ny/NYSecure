@@ -92,7 +92,7 @@
     </div>
     {% endif %}
   </body>
-
+  <script src="/static/script.js"></script>
   <script defer>
     window.onload = setTime();
 
@@ -111,15 +111,6 @@
     function unfocusLocationInput() {
       elm = document.getElementById("location");
       elm.parentElement.style.marginBottom = "5px";
-    }
-    function toggleMenu() {
-      // toggle navigation links when user clicks on bar icon
-      var x = document.getElementById("myLinks");
-      if (x.style.display === "block") {
-        x.style.display = "none";
-      } else {
-        x.style.display = "block";
-      }
     }
 
     function autocomplete(inp, arr) {
