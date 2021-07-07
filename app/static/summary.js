@@ -11,55 +11,34 @@ Vue.component("data-summary", {
   delimiters: ["[[", "]]"],
   template: `
     <div class="content">
-         <p id="header" style="text-align:left;">
-         <span class="tabs" 
-                :class="{ activeTab: selectedTab === tab }"
-                v-for="(tab, index) in tabs"
-                @click="selectedTab = tab"
-                :key="tab"
-          >[[ tab ]]</span>
-          <span id="timestamp" style="float:right; margin-left:5px">[[ updatedtime ]]</span>
-        </p>
-        
-        <div v-show="selectedTab === 'Table Summary'" class="box">
-            <table>
-                <tr>
-                <th></th>
-                <th v-for="floor in Object.values(floorlist)">[[ floor ]]</th>
-                <th>Total</th>
-                </tr>
-                <tr v-for="block in Object.keys(processedblock)">
-                <th>[[ blocklist[block] ]]</th>
-                <td v-for="floor in Object.keys(processedblock[block])" v-if="processedblock[block][floor] !== null">[[ processedblock[block][floor] ]]</td>
-                <td v-else style="background-color:#ebebe4;"></td>
-            </table>
-        </div>
-        
+      <span id="timestamp" style="margin-left: 5px"
+        >[[ updatedtime ]]</span
+      >
 
-        <div v-show="selectedTab === 'By Blocks'">
-            <div v-for="block in Object.keys(processedblock)" class="box">
-                <label id="summarylabel">[[ blocklist[block] ]]</label>
-                <ul>
-                    <li v-for="floor in Object.keys(processedblock[block])" v-if="processedblock[block][floor] !== null">
-                    <label id="summarylabel" v-if="floor === 'Total'">Total</label>
-                    [[ floorlist[floor] ]]: [[ processedblock[block][floor] ]] people
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div v-show="selectedTab === 'By Floor'">
-            <div v-for="floor in Object.keys(processedfloor)" class="box">
-                <label id="summarylabel">[[ floorlist[floor] ]]</label>
-                <ul>
-                    <li v-for="block in Object.keys(processedfloor[floor])" v-if="processedfloor[floor][block] !== null">
-                    <label id="summarylabel" v-if="block === 'Total'">Total</label>
-                    [[ blocklist[block] ]]: [[ processedfloor[floor][block] ]] people
-                    </li>
-                </ul>
-            </div>
-        </div>
-    
+      <table>
+        <tr>
+          <th></th>
+          <th v-for="floor in Object.values(floorlist)" :key="floor">
+            [[ floor ]]
+          </th>
+          <th>Total</th>
+        </tr>
+        <tr v-for="block in Object.keys(processedblock)" :key="block">
+          <th>[[ blocklist[block] ]]</th>
+          <td
+            v-for="floor in Object.keys(processedblock[block])"
+            :key="floor"
+            v-if="processedblock[block][floor] !== null"
+          >
+            [[ processedblock[block][floor] ]]
+          </td>
+          <td v-else style="background-color: #ebebe4"></td>
+        </tr>
+        <tr>
+          <th>Total</th>
+          <td v-for="[key, floor] in Object.entries(summaryfloor)" :key="key">[[floor]]</td>
+        </tr>
+      </table>
     </div>
     `,
   data() {
@@ -129,6 +108,29 @@ Vue.component("data-summary", {
       }
       return processedfloor;
     },
+
+    summaryfloor() {
+      // To sum the total number of people on a floor.
+      // Returns an object with the floor number as key
+
+      var summaryfloor = new Object();
+      for (floor in this.floorlist) {
+        summaryfloor[floor] = 0;
+      }
+
+      for (let block of Object.keys(this.locationsdata)) {
+        for (let floor of Object.keys(this.locationsdata[block])) {
+          summaryfloor[floor] +=
+            parseInt(this.locationsdata[block][floor]) || 0;
+        }
+      }
+
+      totalsum = Object.values(summaryfloor).reduce((a, b) => a + b, 0);
+      summaryfloor["total"] = totalsum;
+      console.log(summaryfloor);
+
+      return summaryfloor;
+    },
   },
 });
 
@@ -155,7 +157,7 @@ var app = new Vue({
   created() {
     this.getLocations();
     this.update();
-    this.timer = setInterval(this.getLocations, 5000);
+    // this.timer = setInterval(this.getLocations, 5000);
   },
   methods: {
     async getLocations() {
