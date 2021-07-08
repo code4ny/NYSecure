@@ -85,7 +85,7 @@ def summary():
     Show the blocks and number of students.
     """
 
-    authenticated = current_user.is_authenticated or (
+    authenticated = current_user.type == "staff" or (
         request.args.get("debug", "") == "yes"
     )
 
