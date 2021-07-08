@@ -7,27 +7,12 @@
 - `config.py` : To contain the configuration of some of the globally used variables
 - `database.py` : Codes to manipulate the database
 - `login.py` : Login logic and url to login
+- `vars.py` : Some useful variables that might need to be used.
 - `views.py` : To view the page. Avoid processing data here.
 
 - To run the flask code, run the `run.py` file.
 - Create any other files needed to improve the structure.
 - Schema (database, api, css class): https://docs.google.com/document/d/1cnTBuBVuUCJdrRCjcoP0eZie31BGKTb4XK3g6L5Tw-s/edit?usp=sharing
-
-## Project Specifications (for MVP)
-
-- All form datas should be using POST unless there is a specific purpose for using GET.
-
-### Reporting page
-
-- Should obtain the information:
-  - name
-  - location
-  - is the room secure against intrusion?
-
-### Summary page
-
-- Shows the number of people at each block.
-- When clicked, get data, and show locations at the block and the number of people.
 
 ## Heroku
 
@@ -44,6 +29,7 @@
 1. Change base branch to push/pull from: `git branch -u origin/development`
    - If unsure, just push/pull from here for now.
 
+
 ### Rough Git Workflow
 
 (Assumed that the repository is set up)
@@ -56,7 +42,7 @@
 1. Push: `git push`
 1. Go github to merge branch if needed.
 
-p.s. If you are using vscode, there is a source control tab that you can use to do step 4-5. And small refresh icons at the bottom for you to push/pull. The branch name is at the bottom. So you don't need to use the command line. Or download any other git gui.
+p.s. If you are using vscode, there is a source control tab that you can use to do step 4-5. And small refresh icons at the bottom for you to push/pull. The branch name is at the bottom. So you don't need to use the command line. Or download any other git gui at https://git-scm.com/downloads/guis.
 
 ### Useful commands list
 

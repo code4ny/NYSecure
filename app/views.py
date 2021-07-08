@@ -1,6 +1,6 @@
 """To render the html files for viewing.
 
-Database processing should be done in the the `database.py` file as much as possible.
+Any heavy logic processing should be done in a separate file as much as possible.
 """
 
 from flask import render_template, redirect, request, make_response
@@ -47,7 +47,7 @@ def reporting():
         "location_reporting.html",
         current_user=current_user,
         locations_list=locations_list,
-        last_submitted_message = last_submitted_message
+        last_submitted_message=last_submitted_message,
     )
 
 
@@ -84,4 +84,11 @@ def summary():
     """
     Show the blocks and number of students.
     """
-    return render_template("summary.html", current_user=current_user)
+
+    authenticated = current_user.type == "staff" or (
+        request.args.get("debug", "") == "yes"
+    )
+
+    return render_template(
+        "summary.html", current_user=current_user, authenticated=authenticated
+    )
