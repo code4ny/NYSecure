@@ -1,6 +1,6 @@
 """To render the html files for viewing.
 
-Database processing should be done in the the `database.py` file as much as possible.
+Any heavy logic processing should be done in a separate file as much as possible.
 """
 
 from flask import render_template, redirect, request, make_response

@@ -1,3 +1,6 @@
+"""Update the database with variables from files
+"""
+
 import psycopg2
 import csv
 
@@ -5,10 +8,16 @@ DATABASE_URI = "postgres://kqejfycmueuecf:717cac44aaa9c449627083c73a063dab2f7a7c
 
 
 def get_connection():
+    """Return connection to database"""
     return psycopg2.connect(DATABASE_URI)
 
 
-def read_files_to_db(fp):
+def read_location_listings_to_db(fp):
+    """Insert into database locations from `location_listings.csv`
+
+    Args:
+        fp (str): Filepath of the csv file.
+    """
     with open(fp, "r", newline="") as f:
         rows = csv.reader(f)
         header = next(rows)
@@ -27,4 +36,4 @@ def read_files_to_db(fp):
 
 
 if __name__ == "__main__":
-    read_files_to_db("location_listings.csv")
+    read_location_listings_to_db("location_listings.csv")

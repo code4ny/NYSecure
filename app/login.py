@@ -1,6 +1,7 @@
-from app.database import DataStore, User
 import json
 import os
+import requests
+
 from flask import Flask, redirect, request, url_for, render_template
 from flask_login import (
     LoginManager,
@@ -9,8 +10,9 @@ from flask_login import (
     login_user,
     logout_user,
 )
+
 from oauthlib.oauth2 import WebApplicationClient
-import requests
+from app.database import DataStore, User
 from app import app
 
 a = DataStore()
