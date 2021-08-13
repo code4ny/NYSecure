@@ -2,7 +2,7 @@ import json
 import os
 import requests
 
-from flask import Flask, redirect, request, url_for, render_template
+from flask import redirect, request, url_for
 from flask_login import (
     LoginManager,
     current_user,

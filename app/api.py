@@ -1,7 +1,7 @@
 from flask import jsonify
 
 from app import app
-from app.config import BASE_API_PATH, DATABASE_URI
+from app.config import BASE_API_PATH
 from app.database import DataStore
 from app.vars import BLOCKS
 
@@ -18,14 +18,15 @@ def get_location_data():
                 <block_name> (str):
                   {
                     <level> (single digit str): <people there> (int)
-                  }
+                  },...
               }
     """
     datas = {}
     for block in BLOCKS:
         datas[block] = {}
         for level in range(1, 6):
-            result = ds.get_summary(block=block, level=str(level))
+            level = str(level)
+            result = ds.get_summary(block=block, level=level)
             if result is not None:
                 result = sum(result.values())
             datas[block][level] = result

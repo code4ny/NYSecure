@@ -54,7 +54,8 @@ def reporting():
 @app.route("/update", methods=["POST"])
 def update():
     """
-    Update the database based on the location being reported.
+    Update the database based on the location being reported. And set cookies.
+
 
     Returns:
         redirect("reporting")
@@ -63,7 +64,10 @@ def update():
     userid = request.form.get("current_user_id")
     current_time = request.form.get("current_time")
     if userid is not None:
+        # Updating the Database
         ds.update_report(userid, location)
+
+        # Update the cookies
         resp = make_response(redirect("/reporting"))
         resp.set_cookie("lastReportedLoc", location)
         resp.set_cookie("lastReportedTime", current_time)

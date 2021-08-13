@@ -13,7 +13,7 @@
       href="https://fonts.googleapis.com/css2?family=Cabin&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="../static/styles.css" />
+    <link rel="stylesheet" href="/static/styles.css" />
     <style>
       p {
         color: white;
@@ -92,7 +92,7 @@
     </div>
     {% endif %}
   </body>
-  <script src="/static/script.js"></script>
+  <script src="/static/scripts/script.js"></script>
   <script defer>
     window.onload = setTime();
 
@@ -103,7 +103,9 @@
 
     function focusLocationInput() {
       elm = document.getElementById("location");
-      elm.parentElement.style.marginBottom = "50vh";
+      
+      // Help to ensure that phone keyboard will not hide the input.
+      elm.parentElement.style.marginBottom = "50vh"; 
 
       // scroll till location is at the top of the page.
       elm.previousElementSibling.previousElementSibling.scrollIntoView();

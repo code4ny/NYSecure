@@ -2,13 +2,39 @@
 
 ## Project Structure
 
-- Codes to be in the folder named `app`.
-- `api.py` : url and logic for requests to be made
-- `config.py` : To contain the configuration of some of the globally used variables
-- `database.py` : Codes to manipulate the database
-- `login.py` : Login logic and url to login
-- `vars.py` : Some useful variables that might need to be used.
-- `views.py` : To view the page. Avoid processing data here.
+- `app` folder: for code related to running the app
+
+  - `api.py` : url and logic for api requests to be made
+  - `config.py` : To contain the configuration of some of the critical variables
+  - `database.py` : Codes to manipulate the database
+  - `login.py` : Login logic and url to login
+  - `vars.py` : Some useful variables that might need to be used.
+  - `views.py` : To view the page. Avoid processing data here.
+
+  <br>
+
+  - `static` folder: for scripts, css and images for any html page.
+
+    - `styles.css` for all the styling.
+
+    - `scripts` folder: for any js scripts
+      - `script.js`: for any general purpose js across multiple pages
+      - `summary.js`: vue code for the summary page
+    - `assets` folder: for images, fonts etc
+      - `images` folder: for images
+
+  - `templates` folder: for all the different html pages for Flask to render
+
+  `utilities` folder:
+
+  - `database_update.py`: utility for updating/setting up the database
+
+<br>
+
+- `requirements.txt`: the packages and version that is used.  
+  Use `pip freeze` to generate it when in a virtual environment.
+
+### Misc
 
 - To run the flask code, run the `run.py` file.
 - Create any other files needed to improve the structure.
@@ -16,8 +42,9 @@
 
 ## Heroku
 
-- Go to `http://nysecure.herokuapp.com/` to view the app
-- Maintenance mode to be on by default.
+- Go to http://nysecure.herokuapp.com/ to view the app.
+- Add environment variables there.  
+  **Used for sensitive information, do not push to github**
 
 # Help and Documentation
 
@@ -28,7 +55,6 @@
 1. Clone this git: `git clone https://github.com/code4ny/NYSecure.git`
 1. Change base branch to push/pull from: `git branch -u origin/development`
    - If unsure, just push/pull from here for now.
-
 
 ### Rough Git Workflow
 

@@ -1,7 +1,6 @@
 """DataStore and User class to work with the database and any other function to manipulate it."""
 
 import os
-import json
 import time
 
 from flask_login import UserMixin

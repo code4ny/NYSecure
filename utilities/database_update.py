@@ -23,7 +23,10 @@ def read_location_listings_to_db(fp):
         header = next(rows)
         with get_connection() as conn:
             cur = conn.cursor()
+
+            # Reset the indexing of the ID to be from zero.
             cur.execute("""ALTER SEQUENCE location_id_seq RESTART;""")
+
             cur.executemany(
                 """
                 INSERT INTO Location (LocationName, Block, Level) 
@@ -36,4 +39,4 @@ def read_location_listings_to_db(fp):
 
 
 if __name__ == "__main__":
-    read_location_listings_to_db("location_listings.csv")
+    read_location_listings_to_db("datas/location_listings.csv")
