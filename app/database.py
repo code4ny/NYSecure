@@ -8,6 +8,7 @@ import psycopg2
 import psycopg2.extras
 
 from app.config import DATABASE_URI
+from app.PubSub import Publisher, Subscriber
 
 
 class DataStore:
@@ -15,6 +16,10 @@ class DataStore:
         # FOR TESTING, TO BE REPLACED!
         testing_database = DATABASE_URI
         self.url = os.environ.get("DATABASE_URL", testing_database)
+        self.publisher = Publisher()
+
+    def add_subscriber(self, sub: "Subscriber"):
+        self.publisher.add_subscriber(sub)
 
     def get_connection(self):
         """Return a connection to database.
@@ -131,6 +136,7 @@ class DataStore:
         except Exception as e:
             return e
         else:
+            self.publisher.notify("loc-updates")
             return "Success"
 
     def insert_user(self, userdict):
