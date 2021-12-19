@@ -1,17 +1,26 @@
 """DataStore and User class to work with the database and any other function to manipulate it."""
-
 import os
 import time
+from typing import Type
 
-from flask_login import UserMixin
 import psycopg2
 import psycopg2.extras
+from flask_login import UserMixin
 
 from app.config import DATABASE_URI
 from app.PubSub import Publisher, Subscriber
+from app.vars import BLOCKS
 
 
 class DataStore:
+    """A singleton class."""
+    __instance__ = None
+
+    def __new__(cls: Type["DataStore"], *args, **kwargs) -> "DataStore":
+        if cls.__instance__ is None:
+            cls.__instance__ = object.__new__(cls)
+        return cls.__instance__
+
     def __init__(self):
         # FOR TESTING, TO BE REPLACED!
         testing_database = DATABASE_URI
@@ -47,9 +56,11 @@ class DataStore:
         if block is None and level is None:
             cur.execute("SELECT LocationName FROM Location;")
         elif block is not None and level is None:
-            cur.execute("SELECT LocationName FROM Location WHERE Block=%s;", (block,))
+            cur.execute(
+                "SELECT LocationName FROM Location WHERE Block=%s;", (block,))
         elif block is None and level is not None:
-            cur.execute("SELECT LocationName FROM Location WHERE Level=%s;", (level,))
+            cur.execute(
+                "SELECT LocationName FROM Location WHERE Level=%s;", (level,))
         else:
             cur.execute(
                 "SELECT LocationName FROM Location WHERE BLOCK=%s AND Level=%s;",
@@ -138,6 +149,30 @@ class DataStore:
         else:
             self.publisher.notify("loc-updates")
             return "Success"
+
+    def return_location_data(self):
+        """Query location datas to return for api.
+
+        Returns:
+            dict: has the following schema:
+                {
+                    <block_name> (str):
+                    {
+                        <level> (single digit str): <people there> (int)
+                    },...
+                }
+        """
+        datas = {}
+        for block in BLOCKS:
+            datas[block] = {}
+            for level in range(1, 6):
+                level = str(level)
+                result = self.get_summary(block=block, level=level)
+                if result is not None:
+                    result = sum(result.values())
+                datas[block][level] = result
+
+        return datas
 
     def insert_user(self, userdict):
         """

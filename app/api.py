@@ -3,7 +3,6 @@ from flask import jsonify
 from app import app
 from app.config import BASE_API_PATH
 from app.database import DataStore
-from app.vars import BLOCKS
 
 ds = DataStore()
 
@@ -21,14 +20,4 @@ def get_location_data():
                   },...
               }
     """
-    datas = {}
-    for block in BLOCKS:
-        datas[block] = {}
-        for level in range(1, 6):
-            level = str(level)
-            result = ds.get_summary(block=block, level=level)
-            if result is not None:
-                result = sum(result.values())
-            datas[block][level] = result
-
-    return jsonify(datas)
+    return jsonify(ds.return_location_data())
