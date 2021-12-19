@@ -3,12 +3,13 @@
 Any heavy logic processing should be done in a separate file as much as possible.
 """
 
-from flask import render_template, redirect, request, make_response
+from flask import make_response, redirect, render_template, request
 from flask.helpers import url_for
 
 from app import app
 from app.database import DataStore
 from app.login import current_user
+from app.sseStream import LocationDataStream
 
 ds = DataStore()
 
@@ -89,9 +90,12 @@ def summary():
     Show the blocks and number of students.
     """
 
-    authenticated = current_user.type == "staff" or (
-        request.args.get("debug", "") == "yes"
-    )
+    authenticated = request.args.get(
+        "debug", "") == "yes" or current_user.type == "staff"
+    if authenticated:
+        # setup the sse
+        ds = DataStore()
+        ds.add_subscriber(LocationDataStream())
 
     return render_template(
         "summary.html", current_user=current_user, authenticated=authenticated
