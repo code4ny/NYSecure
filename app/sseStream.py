@@ -1,3 +1,4 @@
+import time
 import queue
 from typing import Type
 
@@ -25,6 +26,7 @@ class LocationDataStream(Subscriber):
         self.name = 'LocationDataStream'
         ds = DataStore()
         ds.add_subscriber(self)
+        self.last_time = time.time()
         self.data = queue.Queue(maxsize=5)
 
     def __hash__(self):
@@ -47,5 +49,10 @@ class LocationDataStream(Subscriber):
                 self.notify('loc-updates')
 
     def stream_location_data(self):
-        while self.data.not_empty:
+        timeout = time.time() - self.last_time > 40  # heroku have max 55 seconds
+
+        while timeout or self.data.not_empty:
+            if timeout:
+                self.last_time = time.time()
+                yield 'data: ping\n\n'
             yield self.data.get()
