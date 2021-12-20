@@ -1,9 +1,16 @@
+import json
+import queue
 from typing import Type
 
-from flask_sse import sse
-
 from app.database import DataStore
-from PubSub import Subscriber
+from app.PubSub import Subscriber
+
+
+def format_sse(data: str, event=None) -> str:
+    msg = f'data: {data}\n\n'
+    if event is not None:
+        msg = f'event: {event}\n{msg}'
+    return msg
 
 
 class LocationDataStream(Subscriber):
@@ -18,12 +25,27 @@ class LocationDataStream(Subscriber):
     def __init__(self):
         self.name = 'LocationDataStream'
         self.ds = DataStore()
+        self.data = queue.Queue(maxsize=5)
+
+    def __hash__(self):
+        return hash(self.name)
 
     def notify(self, event: str):
         if event == "loc-updates":
-            return self.stream_location_data()
+            print('notified', event)
+            try:
+                self.data.put(
+                    format_sse(
+                        json.dumps(self.ds.return_location_data()),
+                        event="location-updates"))
+                print(self.data.queue)
+            except queue.Full:
+                print('emptying')
+                while not self.data.empty:
+                    self.data.get_nowait()
+                # retry to add the new update
+                self.notify('loc-updates')
 
     def stream_location_data(self):
-        sse.publish(self.ds.return_location_data(),
-                    type='locationdata-updates')
-        return "published"
+        while self.data.not_empty:
+            yield self.data.get()

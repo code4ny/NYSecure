@@ -8,7 +8,10 @@ class Publisher:
     """
 
     def __init__(self) -> None:
-        self.subscribers: list["Subscriber"] = []
+        self.subscribers: set["Subscriber"] = set()
+
+    def __repr__(self) -> str:
+        return f"Publisher({self.subscribers})"
 
     def add_subscriber(self, subscriber: "Subscriber") -> None:
         """Add a subscriber to the publisher.
@@ -16,7 +19,7 @@ class Publisher:
         Args:
             subscriber (Subscriber): the subscriber to be added
         """
-        self.subscribers.append(subscriber)
+        self.subscribers.add(subscriber)
         return
 
     def remove_subscriber(self, sub_name: str) -> Union["Subscriber", None]:
@@ -50,6 +53,9 @@ class Subscriber:
 
     def __init__(self, name: str) -> None:
         self.name = name
+
+    def __repr__(self) -> str:
+        return f"Subscriber({self.name})"
 
     def notify(self, event: str):
         """The method called by the Publisher to publish an event
