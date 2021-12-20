@@ -1,4 +1,3 @@
-import json
 import queue
 from typing import Type
 
@@ -24,7 +23,8 @@ class LocationDataStream(Subscriber):
 
     def __init__(self):
         self.name = 'LocationDataStream'
-        self.ds = DataStore()
+        ds = DataStore()
+        ds.add_subscriber(self)
         self.data = queue.Queue(maxsize=5)
 
     def __hash__(self):
@@ -36,7 +36,7 @@ class LocationDataStream(Subscriber):
             try:
                 self.data.put(
                     format_sse(
-                        json.dumps(self.ds.return_location_data()),
+                        'new update',
                         event="location-updates"))
                 print(self.data.queue)
             except queue.Full:

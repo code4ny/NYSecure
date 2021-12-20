@@ -92,10 +92,6 @@ def summary():
 
     authenticated = request.args.get(
         "debug", "") == "yes" or current_user.type == "staff"
-    if authenticated:
-        # setup the sse
-        ds = DataStore()
-        ds.add_subscriber(LocationDataStream())
 
     return render_template(
         "summary.html", current_user=current_user, authenticated=authenticated

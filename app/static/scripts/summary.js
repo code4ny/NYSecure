@@ -156,21 +156,34 @@ var app = new Vue({
   },
   created() {
     this.getLocations();
-    this.update();
-    // this.timer = setInterval(this.getLocations, 5000);
+
+    // Create event stream
+    var source = new EventSource("/api/v1/stream/locationdata_update");
+    // listen for location-updates event
+    source.addEventListener("location-updates", function (e) {
+      app.getLocations();
+    });
+
+    // debugging the stream
+    source.onopen = function (e) {
+      console.log("Connection to server opened.");
+    };
+    source.onerror = function (e) {
+      console.log("An error occurred while attempting to connect.");
+    };
   },
   methods: {
     async getLocations() {
-      console.log("await starting");
+      console.log("Getting location");
       const response = await fetch(this.api_URL);
       const data = await response.json();
-      this.update();
+      this.updateTime();
       return (this.locationsdata = data);
     },
     cancelAutoUpdate() {
-      clearInterval(this.timer);
+      source.close();
     },
-    update() {
+    updateTime() {
       let months = [
         "January",
         "February",
@@ -210,7 +223,7 @@ var app = new Vue({
     },
   },
   beforeDestroy() {
-    this.cancelAutoUpdate();
     // stop the auto-updating
+    this.cancelAutoUpdate();
   },
 });
