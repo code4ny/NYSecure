@@ -14,18 +14,18 @@ from app.vars import BLOCKS
 
 class DataStore:
     """A singleton class."""
-    __instance__ = None
+    __instance = None
+    publisher = Publisher()
 
     def __new__(cls: Type["DataStore"], *args, **kwargs) -> "DataStore":
-        if cls.__instance__ is None:
-            cls.__instance__ = object.__new__(cls)
-        return cls.__instance__
+        if cls.__instance is None:
+            cls.__instance = object.__new__(cls)
+        return cls.__instance
 
     def __init__(self):
         # FOR TESTING, TO BE REPLACED!
         testing_database = DATABASE_URI
         self.url = os.environ.get("DATABASE_URL", testing_database)
-        self.publisher = Publisher()
 
     def add_subscriber(self, sub: "Subscriber"):
         self.publisher.add_subscriber(sub)
