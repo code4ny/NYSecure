@@ -51,11 +51,12 @@ class LocationDataStream(Subscriber):
     def stream_location_data(self):
         while 1:
             time.sleep(2)
-            timeout = time.time() - self.last_time > 10  # heroku have max 55 seconds
-            
+            # heroku have max 55 seconds
+            is_timeout: bool = time.time() - self.last_time > 40
+
             if not self.data.empty:
                 yield self.data.get()
-            elif timeout:
+            elif is_timeout:
                 print('ping')
                 self.last_time = time.time()
                 yield 'data: ping\n\n'
